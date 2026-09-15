@@ -1,0 +1,169 @@
+---
+import { projectTypeOptions, budgetRangeOptions, timelineOptions } from '../data/services';
+---
+
+<form
+  name="project-inquiry"
+  method="POST"
+  action="/thank-you"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="inquiry-form"
+>
+  <input type="hidden" name="form-name" value="project-inquiry" />
+  <p class="visually-hidden">
+    <label>
+      Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" />
+    </label>
+  </p>
+
+  <div class="inquiry-form__row">
+    <div class="inquiry-form__field">
+      <label for="name">Name <span aria-hidden="true">*</span></label>
+      <input type="text" id="name" name="name" autocomplete="name" required />
+    </div>
+    <div class="inquiry-form__field">
+      <label for="email">Email <span aria-hidden="true">*</span></label>
+      <input type="email" id="email" name="email" autocomplete="email" required />
+    </div>
+  </div>
+
+  <div class="inquiry-form__row">
+    <div class="inquiry-form__field">
+      <label for="company">Company</label>
+      <input type="text" id="company" name="company" autocomplete="organization" />
+    </div>
+    <div class="inquiry-form__field">
+      <label for="website">Current website</label>
+      <input type="url" id="website" name="website" placeholder="https://" />
+    </div>
+  </div>
+
+  <div class="inquiry-form__row">
+    <div class="inquiry-form__field">
+      <label for="project-type">Project type <span aria-hidden="true">*</span></label>
+      <select id="project-type" name="project_type" required>
+        <option value="" disabled selected>Select an option</option>
+        {projectTypeOptions.map((option) => <option value={option}>{option}</option>)}
+      </select>
+    </div>
+    <div class="inquiry-form__field">
+      <label for="budget">Budget range</label>
+      <select id="budget" name="budget">
+        <option value="" disabled selected>Select a range</option>
+        {budgetRangeOptions.map((option) => <option value={option}>{option}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <div class="inquiry-form__row">
+    <div class="inquiry-form__field">
+      <label for="timeline">Timeline</label>
+      <select id="timeline" name="timeline">
+        <option value="" disabled selected>Select a timeline</option>
+        {timelineOptions.map((option) => <option value={option}>{option}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <div class="inquiry-form__field">
+    <label for="details">Project details <span aria-hidden="true">*</span></label>
+    <textarea id="details" name="details" rows="6" required></textarea>
+  </div>
+
+  <p class="inquiry-form__note text-secondary">
+    <span aria-hidden="true">*</span> Required fields.
+  </p>
+
+  <button type="submit" class="btn btn-primary inquiry-form__submit">
+    Send Inquiry
+    <span class="btn-arrow" aria-hidden="true">→</span>
+  </button>
+</form>
+
+<style>
+  .inquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    max-width: 42rem;
+  }
+
+  .inquiry-form__row {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .inquiry-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  label {
+    font-size: var(--fs-small);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  label span {
+    color: var(--color-accent);
+  }
+
+  input,
+  select,
+  textarea {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    padding: 0.85rem 1rem;
+    font-size: var(--fs-body);
+    font-family: inherit;
+    transition: border-color var(--duration-fast) var(--ease-standard);
+  }
+
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 1px solid var(--color-text);
+    outline-offset: 2px;
+    border-color: var(--color-text);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--color-text-secondary) 50%),
+      linear-gradient(135deg, var(--color-text-secondary) 50%, transparent 50%);
+    background-position: calc(100% - 1.3rem) center, calc(100% - 1rem) center;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+  }
+
+  .inquiry-form__note {
+    font-size: var(--fs-meta);
+  }
+
+  .inquiry-form__submit {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .inquiry-form__row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,17 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# local portable tooling (downloaded, not part of the repo)
+.tools/
+
+# env
+.env
+.env.production
+
+# editor / os
+.DS_Store
+*.log

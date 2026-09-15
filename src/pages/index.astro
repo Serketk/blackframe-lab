@@ -1,0 +1,443 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CTASection from '../components/CTASection.astro';
+import { featuredProjects } from '../data/projects';
+import { services, lifecycleStages, differentiators, experienceCapabilities } from '../data/services';
+import { getCollection } from 'astro:content';
+import { siteMeta } from '../data/nav';
+
+const allArticles = (await getCollection('insights', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const latestArticles = allArticles.slice(0, 3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      name: siteMeta.name,
+      description: siteMeta.description,
+      url: siteMeta.url,
+      email: siteMeta.email,
+      areaServed: 'Worldwide',
+    },
+    {
+      '@type': 'WebSite',
+      name: siteMeta.name,
+      url: siteMeta.url,
+    },
+  ],
+};
+---
+
+<BaseLayout title={siteMeta.name} description={siteMeta.description} path="/">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <!-- SECTION 01 — HERO -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="eyebrow hero__eyebrow">Independent Web Design Studio</p>
+      <h1 class="hero__title">
+        BLACKFRAME <span class="hero__title-accent">LAB</span>
+        <span class="hero__title-line">Websites designed beyond launch.</span>
+      </h1>
+      <p class="hero__supporting">
+        We design, build and evolve websites for brands that need a stronger digital presence.
+      </p>
+      <div class="hero__actions">
+        <a href="/work" class="btn btn-primary">
+          View Work <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="/start-a-project" class="btn btn-secondary">Start a Project</a>
+      </div>
+    </div>
+    <div class="hero__model">
+      <span>Strategy</span>
+      <span>Design</span>
+      <span>Build</span>
+      <span>Launch</span>
+      <span>Grow</span>
+    </div>
+  </section>
+
+  <!-- SECTION 02 — SELECTED WORK -->
+  <section class="section section-border-top">
+    <div class="container">
+      <div class="section-heading">
+        <SectionLabel index="02" label="Selected Work" />
+        <a href="/work" class="section-heading__link">
+          View all work <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="work-grid">
+        {
+          featuredProjects.map((project, i) => (
+            <ProjectCard project={project} index={`0${i + 1}`} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 03 — CORE OFFER -->
+  <section class="section section-border-top offer">
+    <div class="container">
+      <SectionLabel index="03" label="Core Offer" />
+      <h2 class="offer__heading" data-reveal>Four ways to work with the studio.</h2>
+
+      <div class="offer__list">
+        {
+          services.map((service) => (
+            <a href={`/services#${service.slug}`} class="offer__item" data-reveal>
+              <span class="offer__index">{service.index}</span>
+              <span class="offer__name">{service.name}</span>
+              <span class="offer__summary text-secondary">{service.summary}</span>
+              <span class="btn-arrow offer__arrow" aria-hidden="true">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 04 — FULL-SCOPE WEB CAPABILITY -->
+  <section class="section section-border-top lifecycle">
+    <div class="container">
+      <SectionLabel index="04" label="Full-Scope Web Capability" />
+      <h2 class="lifecycle__heading" data-reveal>One partner from first structure to post-launch evolution.</h2>
+
+      <ol class="lifecycle__list">
+        {
+          lifecycleStages.map((stage) => (
+            <li class="lifecycle__item" data-reveal>
+              <span class="lifecycle__index">{stage.index}</span>
+              <h3 class="lifecycle__name">{stage.name}</h3>
+              <p class="text-secondary">{stage.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- SECTION 05 — WHY BLACKFRAME -->
+  <section class="section section-border-top why">
+    <div class="container why__grid">
+      <div>
+        <SectionLabel index="05" label="Why Blackframe" />
+        <h2 class="why__heading" data-reveal>Tangible reasons, not agency claims.</h2>
+      </div>
+      <ul class="why__list">
+        {
+          differentiators.map((item) => (
+            <li data-reveal>
+              <h3>{item.name}</h3>
+              <p class="text-secondary">{item.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 06 — EXPERIENCE -->
+  <section class="section section-border-top experience">
+    <div class="container">
+      <SectionLabel index="06" label="Experience" />
+      <h2 class="experience__heading" data-reveal>
+        5+ years of hands-on experience across web, UX/UI and digital production.
+      </h2>
+      <ul class="experience__tags">
+        {experienceCapabilities.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 07 — INSIGHTS -->
+  {
+    latestArticles.length > 0 && (
+      <section class="section section-border-top">
+        <div class="container">
+          <div class="section-heading">
+            <SectionLabel index="07" label="Insights" />
+            <a href="/insights" class="section-heading__link">
+              All insights <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div class="insights-list">
+            {latestArticles.map((article) => <ArticleCard article={article} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- SECTION 08 — FINAL CTA -->
+  <CTASection
+    heading="Have a website to build, redesign or fix?"
+    supporting="Tell us where the project stands today, and we'll take it from there."
+  />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-top: clamp(3rem, 8vw, 6rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 1.75rem;
+  }
+
+  .hero__title {
+    font-size: var(--fs-display);
+    line-height: var(--lh-tight);
+    max-width: 20ch;
+  }
+
+  .hero__title-accent {
+    color: var(--color-accent);
+  }
+
+  .hero__title-line {
+    display: block;
+    font-size: 0.4em;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    margin-top: 0.5em;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .hero__supporting {
+    margin-top: 2rem;
+    font-size: var(--fs-body-lg);
+    color: var(--color-text-secondary);
+    max-width: 42ch;
+  }
+
+  .hero__actions {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .hero__model {
+    margin-top: clamp(3rem, 8vw, 6rem);
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero__model span {
+    padding: 1rem var(--container-pad);
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero__model span:last-child {
+    border-right: none;
+  }
+
+  @media (min-width: 640px) {
+    .hero__model {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .hero__model span:nth-child(4) {
+      border-right: 1px solid var(--color-border);
+    }
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .section-heading__link {
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    white-space: nowrap;
+  }
+
+  .section-heading__link:hover {
+    color: var(--color-text);
+  }
+
+  .work-grid {
+    display: grid;
+    gap: 2.5rem 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .work-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .offer__heading {
+    font-size: var(--fs-h2);
+    max-width: 20ch;
+    margin-top: 1.5rem;
+  }
+
+  .offer__list {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .offer__item {
+    display: grid;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: padding-left var(--duration-base) var(--ease-standard);
+  }
+
+  .offer__item:hover {
+    padding-left: 0.75rem;
+  }
+
+  .offer__item:hover .offer__arrow {
+    transform: translateX(3px);
+  }
+
+  .offer__index {
+    font-size: var(--fs-small);
+    color: var(--color-accent);
+  }
+
+  .offer__name {
+    font-size: var(--fs-h3);
+  }
+
+  .offer__summary {
+    max-width: 52ch;
+  }
+
+  .offer__arrow {
+    justify-self: end;
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .offer__item {
+      grid-template-columns: 3rem 1fr 2.2fr 2rem;
+    }
+  }
+
+  .lifecycle__heading {
+    font-size: var(--fs-h2);
+    max-width: 26ch;
+    margin-top: 1.5rem;
+  }
+
+  .lifecycle__list {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: grid;
+    gap: 2.5rem;
+    counter-reset: lifecycle;
+  }
+
+  .lifecycle__item {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.5rem;
+  }
+
+  .lifecycle__index {
+    display: block;
+    font-size: var(--fs-small);
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .lifecycle__name {
+    font-size: var(--fs-h4);
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: 1024px) {
+    .lifecycle__list {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  .why__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .why__heading {
+    font-size: var(--fs-h2);
+    max-width: 20ch;
+    margin-top: 1.5rem;
+  }
+
+  .why__list {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .why__list li {
+    padding-block: 1.75rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .why__list h3 {
+    font-size: var(--fs-h4);
+    margin-bottom: 0.6rem;
+  }
+
+  .why__list p {
+    max-width: 48ch;
+  }
+
+  @media (min-width: 1024px) {
+    .why__grid {
+      grid-template-columns: 0.9fr 1.4fr;
+    }
+  }
+
+  .experience__heading {
+    font-size: var(--fs-h2);
+    max-width: 36ch;
+    margin-top: 1.5rem;
+  }
+
+  .experience__tags {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .experience__tags li {
+    font-size: var(--fs-small);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .insights-list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

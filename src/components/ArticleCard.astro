@@ -1,0 +1,78 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'insights'>;
+}
+
+const { article } = Astro.props;
+const { title, intro, date, readingTime, topic } = article.data;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<a href={`/insights/${article.id}`} class="article-card" data-reveal>
+  <p class="article-card__meta">
+    <span class="article-card__topic">{topic}</span>
+    <span aria-hidden="true">·</span>
+    <time datetime={date.toISOString()}>{formattedDate}</time>
+    <span aria-hidden="true">·</span>
+    <span>{readingTime}</span>
+  </p>
+  <h3 class="article-card__title">{title}</h3>
+  <p class="article-card__intro text-secondary">{intro}</p>
+  <span class="article-card__link">
+    Read the article
+    <span class="btn-arrow" aria-hidden="true">→</span>
+  </span>
+</a>
+
+<style>
+  .article-card {
+    display: block;
+    padding-block: 2rem;
+    border-top: 1px solid var(--color-border);
+    transition: opacity var(--duration-fast) var(--ease-standard);
+  }
+
+  .article-card:hover {
+    opacity: 0.75;
+  }
+
+  .article-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .article-card__topic {
+    color: var(--color-accent);
+  }
+
+  .article-card__title {
+    margin-top: 1rem;
+    font-size: var(--fs-h3);
+    max-width: 32ch;
+  }
+
+  .article-card__intro {
+    margin-top: 0.75rem;
+    max-width: 56ch;
+  }
+
+  .article-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-top: 1.25rem;
+    font-size: var(--fs-small);
+  }
+</style>

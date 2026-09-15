@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "blackframe-dev",
+      "runtimeExecutable": "/Users/katerynasopova/Desktop/BLACKFRAME/.tools/node/bin/node",
+      "runtimeArgs": ["/Users/katerynasopova/Desktop/BLACKFRAME/node_modules/astro/bin/astro.mjs", "dev"],
+      "port": 4321
+    }
+  ]
+}

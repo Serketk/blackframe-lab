@@ -1,0 +1,282 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ProjectHero from '../components/ProjectHero.astro';
+import ProjectMeta from '../components/ProjectMeta.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import CTASection from '../components/CTASection.astro';
+import { siteMeta } from '../data/nav';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+const path = `/work/${project.slug}`;
+const description = `${project.summary} ${project.disclosure}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Work', item: `${siteMeta.url}/work` },
+    { '@type': 'ListItem', position: 2, name: project.title, item: `${siteMeta.url}${path}` },
+  ],
+};
+---
+
+<BaseLayout title={project.title} description={description} path={path} type="article">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <ProjectHero project={project} />
+  <ProjectMeta project={project} />
+
+  <article class="case-body">
+    <div class="container">
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">02</span>
+        <h2>Context</h2>
+        <div class="case-section__copy">
+          {project.context.map((p) => <p>{p}</p>)}
+        </div>
+      </section>
+
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">03</span>
+        <h2>Challenge</h2>
+        <div class="case-section__copy">
+          {project.challenge.map((p) => <p>{p}</p>)}
+        </div>
+      </section>
+
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">04</span>
+        <h2>Strategy</h2>
+        <div class="case-section__copy">
+          {project.strategy.map((p) => <p>{p}</p>)}
+        </div>
+      </section>
+
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">05</span>
+        <h2>Information Architecture</h2>
+        <div class="case-section__copy">
+          <p>{project.informationArchitecture.intro}</p>
+          <ol class="case-section__structure">
+            {project.informationArchitecture.structure.map((item) => <li>{item}</li>)}
+          </ol>
+        </div>
+      </section>
+
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">06</span>
+        <h2>UX</h2>
+        <div class="case-section__copy">
+          {project.ux.map((p) => <p>{p}</p>)}
+        </div>
+      </section>
+
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">07</span>
+        <h2>Visual System</h2>
+        <dl class="case-section__system">
+          <div>
+            <dt>Typography</dt>
+            <dd>{project.visualSystem.typography}</dd>
+          </div>
+          <div>
+            <dt>Grid</dt>
+            <dd>{project.visualSystem.grid}</dd>
+          </div>
+          <div>
+            <dt>Components</dt>
+            <dd>{project.visualSystem.components}</dd>
+          </div>
+          <div>
+            <dt>Image Direction</dt>
+            <dd>{project.visualSystem.imageDirection}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">08</span>
+        <h2>Key Screens</h2>
+        <div class="case-section__screens">
+          {
+            project.keyScreens.map((screen) => (
+              <figure>
+                <ImagePlaceholder ratio="16 / 10" label={screen.label} />
+                <figcaption class="text-secondary">{screen.description}</figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">09</span>
+        <h2>Responsive</h2>
+        <div class="case-section__copy">
+          <p>{project.responsive}</p>
+        </div>
+        <div class="case-section__responsive-media">
+          <ImagePlaceholder ratio="16 / 10" label="Desktop view" />
+          <ImagePlaceholder ratio="9 / 16" label="Mobile view" />
+        </div>
+      </section>
+
+      <section class="case-section" data-reveal>
+        <span class="case-section__index">10</span>
+        <h2>Build &amp; System Thinking</h2>
+        <div class="case-section__copy">
+          <ul class="case-section__list">
+            {project.buildSystem.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="case-section case-section--outcome" data-reveal>
+        <span class="case-section__index">11</span>
+        <h2>Outcome</h2>
+        <div class="case-section__copy">
+          <p>{project.outcome}</p>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <CTASection
+    heading="Have a project like this in mind?"
+    supporting="Tell us where it stands today, and we'll take it from there."
+  />
+</BaseLayout>
+
+<style>
+  .case-body {
+    padding-block: clamp(2rem, 5vw, 3rem);
+  }
+
+  .case-section {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .case-section__index {
+    font-size: var(--fs-small);
+    color: var(--color-accent);
+  }
+
+  .case-section h2 {
+    font-size: var(--fs-h2);
+    max-width: 20ch;
+  }
+
+  .case-section__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 62ch;
+    color: var(--color-text-secondary);
+    font-size: var(--fs-body-lg);
+  }
+
+  .case-section__structure {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    counter-reset: ia;
+  }
+
+  .case-section__structure li {
+    padding-left: 1.75rem;
+    position: relative;
+    font-size: var(--fs-body);
+  }
+
+  .case-section__structure li::before {
+    counter-increment: ia;
+    content: counter(ia, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-size: var(--fs-small);
+  }
+
+  .case-section__system {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .case-section__system dt {
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .case-section__system dd {
+    max-width: 56ch;
+    color: var(--color-text-secondary);
+  }
+
+  .case-section__screens {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .case-section__screens figcaption {
+    margin-top: 0.85rem;
+    font-size: var(--fs-small);
+  }
+
+  .case-section__responsive-media {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .case-section__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .case-section__list li {
+    padding-left: 1.1rem;
+    position: relative;
+    font-size: var(--fs-body);
+  }
+
+  .case-section__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 1px;
+    background: var(--color-text-muted);
+  }
+
+  .case-section--outcome {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  @media (min-width: 768px) {
+    .case-section__system {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .case-section__responsive-media {
+      grid-template-columns: 1.6fr 1fr;
+      align-items: start;
+    }
+  }
+</style>

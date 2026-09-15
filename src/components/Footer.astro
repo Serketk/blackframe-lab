@@ -1,0 +1,113 @@
+---
+import { primaryNav, siteMeta } from '../data/nav';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <p class="site-footer__logo">BLACKFRAME <span>LAB</span></p>
+        <p class="text-secondary site-footer__tagline">{siteMeta.tagline}</p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Footer">
+        <ul>
+          {
+            primaryNav.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+          <li><a href="/start-a-project">Start a Project</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-footer__contact">
+        <p class="eyebrow">Contact</p>
+        <a href={`mailto:${siteMeta.email}`}>{siteMeta.email}</a>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p class="text-secondary">© {year} BLACKFRAME LAB. All rights reserved.</p>
+      <a href="/privacy" class="text-secondary">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: clamp(3rem, 6vw, 5rem) 2rem;
+  }
+
+  .site-footer__top {
+    display: grid;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-footer__logo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .site-footer__logo span {
+    color: var(--color-accent);
+  }
+
+  .site-footer__tagline {
+    margin-top: 0.5rem;
+    max-width: 24ch;
+  }
+
+  .site-footer__nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .site-footer__nav a,
+  .site-footer__contact a {
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+    transition: color var(--duration-fast) var(--ease-standard);
+  }
+
+  .site-footer__nav a:hover,
+  .site-footer__contact a:hover {
+    color: var(--color-text);
+  }
+
+  .site-footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .site-footer__contact a {
+    font-size: var(--fs-body-lg);
+    color: var(--color-text);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    justify-content: space-between;
+    padding-top: 1.75rem;
+    font-size: var(--fs-small);
+  }
+
+  @media (min-width: 768px) {
+    .site-footer__top {
+      grid-template-columns: 1.4fr 1fr 1fr;
+    }
+  }
+</style>

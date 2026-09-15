@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import CTASection from '../components/CTASection.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import { experienceCapabilities, differentiators } from '../data/services';
+
+const title = 'Studio';
+const description =
+  'BLACKFRAME LAB is an independent web design studio focused on creating, rebuilding and evolving websites, backed by 5+ years of hands-on experience across UX/UI and web production.';
+
+const experienceAreas = [
+  'Responsive websites',
+  'Landing pages',
+  'CMS builds',
+  'Website migrations',
+  'Launches',
+  'Website management',
+  'Analytics implementation',
+  'Lead forms',
+  'Content systems',
+  'On-page SEO foundations',
+  'Post-launch support',
+];
+---
+
+<BaseLayout title={title} description={description} path="/studio">
+  <section class="studio-hero section">
+    <div class="container studio-hero__grid">
+      <div>
+        <SectionLabel index="01" label="Studio" />
+        <h1 class="studio-hero__title" data-reveal>
+          An independent studio, focused entirely on websites.
+        </h1>
+        <p class="studio-hero__lede text-secondary" data-reveal>
+          BLACKFRAME LAB designs, builds, launches and evolves websites for brands that need a
+          stronger digital presence. Not a full-service agency — a studio built around one
+          product, done properly.
+        </p>
+      </div>
+      <ImagePlaceholder ratio="4 / 5" label="Studio portrait" />
+    </div>
+  </section>
+
+  <section class="section section-border-top">
+    <div class="container studio-approach">
+      <SectionLabel index="02" label="Approach" />
+      <div class="studio-approach__copy">
+        <p data-reveal>
+          Every project moves through the same operating model — strategy, design, build, launch,
+          grow — regardless of size. That consistency is what allows a small studio to take
+          ownership of a project the way a larger team would, without losing the direct
+          relationship between the person deciding and the person building.
+        </p>
+        <p data-reveal>
+          The studio works on new websites, redesigns of existing sites, landing pages, and
+          ongoing website care — always with the same emphasis: structure and usability first,
+          visual polish built on top of that foundation, not instead of it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-border-top">
+    <div class="container">
+      <SectionLabel index="03" label="Background" />
+      <h2 class="studio-background__heading" data-reveal>
+        5+ years working across UX/UI design, web design, website production and digital
+        operations.
+      </h2>
+      <p class="studio-background__note text-secondary" data-reveal>
+        That experience spans:
+      </p>
+      <ul class="studio-background__list">
+        {experienceAreas.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-border-top">
+    <div class="container">
+      <SectionLabel index="04" label="Tools & Platforms" />
+      <p class="studio-tools__note text-secondary" data-reveal>
+        Platform-agnostic by necessity — the right foundation depends on the project, not a
+        default stack.
+      </p>
+      <ul class="studio-tools__list">
+        {experienceCapabilities.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-border-top">
+    <div class="container">
+      <SectionLabel index="05" label="What Stays Consistent" />
+      <ul class="studio-differentiators">
+        {
+          differentiators.map((item) => (
+            <li data-reveal>
+              <h3>{item.name}</h3>
+              <p class="text-secondary">{item.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Have a website to build, redesign or fix?"
+    supporting="Tell us where the project stands today, and we'll take it from there."
+  />
+</BaseLayout>
+
+<style>
+  .studio-hero {
+    padding-bottom: 0;
+  }
+
+  .studio-hero__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .studio-hero__title {
+    font-size: var(--fs-h1);
+    max-width: 20ch;
+    margin-top: 1.5rem;
+  }
+
+  .studio-hero__lede {
+    margin-top: 1.5rem;
+    font-size: var(--fs-body-lg);
+    max-width: 48ch;
+  }
+
+  @media (min-width: 1024px) {
+    .studio-hero__grid {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .studio-approach__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 62ch;
+    margin-top: 1.5rem;
+    font-size: var(--fs-body-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .studio-background__heading {
+    font-size: var(--fs-h2);
+    max-width: 34ch;
+    margin-top: 1.5rem;
+  }
+
+  .studio-background__note {
+    margin-top: 1.75rem;
+  }
+
+  .studio-background__list,
+  .studio-tools__list {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .studio-background__list li,
+  .studio-tools__list li {
+    font-size: var(--fs-small);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .studio-tools__note {
+    margin-top: 1.5rem;
+    max-width: 48ch;
+  }
+
+  .studio-differentiators {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    display: grid;
+    gap: 2rem;
+  }
+
+  .studio-differentiators li {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .studio-differentiators h3 {
+    font-size: var(--fs-h4);
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: 768px) {
+    .studio-differentiators {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

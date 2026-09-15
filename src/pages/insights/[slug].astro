@@ -1,0 +1,29 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('insights', ({ data }) => !data.draft);
+
+  return articles.map((entry) => {
+    const related = entry.data.related
+      ? articles.find((a) => a.id === entry.data.related)
+      : undefined;
+
+    return {
+      params: { slug: entry.id },
+      props: { entry, related },
+    };
+  });
+}
+
+interface Props {
+  entry: CollectionEntry<'insights'>;
+  related?: CollectionEntry<'insights'>;
+}
+
+const { entry, related } = Astro.props;
+---
+
+<ArticleLayout entry={entry} related={related} />

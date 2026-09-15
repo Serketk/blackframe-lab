@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import { siteMeta } from '../data/nav';
+
+const title = 'Privacy Policy';
+const description = 'How BLACKFRAME LAB collects, uses and protects information submitted through this website.';
+const lastUpdated = 'September 15, 2026';
+---
+
+<BaseLayout title={title} description={description} path="/privacy">
+  <section class="privacy section">
+    <div class="container container--article">
+      <SectionLabel label="Privacy Policy" />
+      <h1 class="privacy__title" data-reveal>Privacy Policy</h1>
+      <p class="privacy__updated text-secondary">Last updated: {lastUpdated}</p>
+
+      <div class="privacy__body">
+        <p>
+          This Privacy Policy explains how BLACKFRAME LAB ("we," "us") collects, uses and
+          protects information submitted through this website.
+        </p>
+
+        <h2>Information we collect</h2>
+        <p>
+          When you submit the project inquiry form, we collect the information you provide,
+          which may include your name, email address, company, current website, project type,
+          budget range, timeline, and project details. We do not collect payment or financial
+          information through this website.
+        </p>
+
+        <h2>How we use it</h2>
+        <p>
+          Information submitted through the inquiry form is used solely to respond to your
+          project inquiry and to communicate with you about a potential project. We do not sell
+          or share this information with third parties for marketing purposes.
+        </p>
+
+        <h2>Form handling</h2>
+        <p>
+          Project inquiries are processed using Netlify Forms, a service provided by Netlify,
+          Inc. Submitted data is stored by Netlify and made accessible to us for the purpose of
+          responding to inquiries. Please refer to Netlify's own privacy policy for details on
+          how they handle form submission data.
+        </p>
+
+        <h2>Analytics</h2>
+        <p>
+          This site may use standard web analytics tools to understand aggregate visitor
+          behavior, such as which pages are visited. This data is used only to understand and
+          improve the website, not to identify individual visitors.
+        </p>
+
+        <h2>Cookies</h2>
+        <p>
+          This site uses only the cookies strictly necessary for its own functionality and any
+          analytics tooling in use. No advertising or cross-site tracking cookies are used.
+        </p>
+
+        <h2>Data retention</h2>
+        <p>
+          Inquiry submissions are retained only as long as needed to respond to your request and
+          maintain a record of business communication, after which they may be deleted.
+        </p>
+
+        <h2>Your rights</h2>
+        <p>
+          You may request access to, correction of, or deletion of any information you have
+          submitted by contacting us at <a href={`mailto:${siteMeta.email}`}>{siteMeta.email}</a>.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions about this policy can be directed to
+          <a href={`mailto:${siteMeta.email}`}>{siteMeta.email}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .privacy__title {
+    font-size: var(--fs-h1);
+    margin-top: 1.5rem;
+  }
+
+  .privacy__updated {
+    margin-top: 1rem;
+    font-size: var(--fs-small);
+  }
+
+  .privacy__body {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    color: var(--color-text-secondary);
+    font-size: var(--fs-body-lg);
+  }
+
+  .privacy__body h2 {
+    margin-top: 1rem;
+    font-size: var(--fs-h4);
+    color: var(--color-text);
+  }
+
+  .privacy__body a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

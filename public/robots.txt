@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blackframelab.netlify.app/sitemap-index.xml

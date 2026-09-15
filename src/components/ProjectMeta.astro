@@ -1,0 +1,68 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<section class="project-meta section-border-top">
+  <div class="container project-meta__grid">
+    <div class="project-meta__item">
+      <p class="eyebrow">Type</p>
+      <p>{project.type}</p>
+    </div>
+    <div class="project-meta__item">
+      <p class="eyebrow">Category</p>
+      <p>{project.category}</p>
+    </div>
+    <div class="project-meta__item">
+      <p class="eyebrow">Year</p>
+      <p>{project.year}</p>
+    </div>
+    <div class="project-meta__item project-meta__scope">
+      <p class="eyebrow">Scope</p>
+      <ul>
+        {project.scope.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .project-meta {
+    padding-block: clamp(2rem, 4vw, 3rem);
+  }
+
+  .project-meta__grid {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .project-meta__item p:not(.eyebrow) {
+    margin-top: 0.5rem;
+  }
+
+  .project-meta__scope ul {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .project-meta__scope li {
+    font-size: var(--fs-small);
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .project-meta__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) 2fr;
+    }
+  }
+</style>

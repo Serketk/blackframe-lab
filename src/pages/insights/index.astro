@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const title = 'Insights';
+const description =
+  'Notes on websites, structure and what actually determines whether a website works — from BLACKFRAME LAB.';
+
+const articles = (await getCollection('insights', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title={title} description={description} path="/insights">
+  <section class="insights-hero section">
+    <div class="container">
+      <SectionLabel index="01" label="Insights" />
+      <h1 class="insights-hero__title" data-reveal>Notes on websites, structure, and what actually works.</h1>
+    </div>
+  </section>
+
+  <section class="section-border-top">
+    <div class="container insights-index__list">
+      {articles.map((article) => <ArticleCard article={article} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .insights-hero {
+    padding-bottom: 0;
+  }
+
+  .insights-hero__title {
+    font-size: var(--fs-h1);
+    max-width: 22ch;
+    margin-top: 1.5rem;
+  }
+
+  .insights-index__list {
+    padding-block: clamp(1rem, 3vw, 2rem) clamp(3rem, 6vw, 5rem);
+  }
+</style>

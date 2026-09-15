@@ -1,0 +1,56 @@
+:root {
+  /* surfaces */
+  --color-bg: #0b0b0a;
+  --color-surface: #141412;
+  --color-surface-raised: #1b1b18;
+  --color-border: rgba(242, 240, 236, 0.12);
+  --color-border-strong: rgba(242, 240, 236, 0.24);
+
+  /* text */
+  --color-text: #f2f0ec;
+  --color-text-secondary: #9a978e;
+  --color-text-muted: #6b6963;
+
+  /* accent — used sparingly */
+  --color-accent: #b08d57;
+  --color-accent-soft: rgba(176, 141, 87, 0.16);
+
+  /* semantic */
+  --color-focus: #f2f0ec;
+  --color-error: #d97a5f;
+
+  /* type */
+  --font-body: 'Archivo Variable', 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --fs-display: clamp(2.75rem, 6.5vw, 6.5rem);
+  --fs-h1: clamp(2.25rem, 4.5vw, 4rem);
+  --fs-h2: clamp(1.75rem, 3vw, 2.75rem);
+  --fs-h3: clamp(1.375rem, 2vw, 1.875rem);
+  --fs-h4: clamp(1.125rem, 1.2vw, 1.375rem);
+  --fs-body-lg: clamp(1.125rem, 1.4vw, 1.375rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-meta: 0.75rem;
+
+  --lh-tight: 1.05;
+  --lh-heading: 1.15;
+  --lh-body: 1.6;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.16em;
+
+  /* layout */
+  --container-max: 1440px;
+  --container-pad: clamp(1.25rem, 4vw, 4rem);
+  --section-pad-y: clamp(4rem, 9vw, 8rem);
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 320ms;
+  --duration-slow: 600ms;
+}

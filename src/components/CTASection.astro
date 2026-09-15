@@ -1,0 +1,56 @@
+---
+interface Props {
+  heading: string;
+  supporting?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  bordered?: boolean;
+}
+
+const {
+  heading,
+  supporting,
+  ctaLabel = 'Start a Project',
+  ctaHref = '/start-a-project',
+  bordered = true,
+} = Astro.props;
+---
+
+<section class:list={['cta-section', { 'section-border-top': bordered }]}>
+  <div class="container cta-section__inner">
+    <h2 class="cta-section__heading" data-reveal>{heading}</h2>
+    {supporting && <p class="cta-section__supporting text-secondary" data-reveal>{supporting}</p>}
+    <a href={ctaHref} class="btn btn-primary cta-section__btn" data-reveal>
+      {ctaLabel}
+      <span class="btn-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding-block: clamp(4.5rem, 10vw, 9rem);
+    text-align: center;
+  }
+
+  .cta-section__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .cta-section__heading {
+    font-size: var(--fs-h1);
+    max-width: 18ch;
+  }
+
+  .cta-section__supporting {
+    max-width: 48ch;
+    font-size: var(--fs-body-lg);
+  }
+
+  .cta-section__btn {
+    margin-top: 0.5rem;
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+import { primaryNav, ctaLink } from '../data/nav';
+---
+
+<div id="mobile-menu" class="mobile-menu" data-mobile-menu hidden>
+  <div class="container mobile-menu__inner">
+    <nav aria-label="Mobile">
+      <ul>
+        {
+          primaryNav.map((link, i) => (
+            <li style={`--i: ${i}`}>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a href={ctaLink.href} class="btn btn-primary mobile-menu__cta">{ctaLink.label}</a>
+    <button type="button" class="mobile-menu__close" data-menu-close>
+      <span class="visually-hidden">Close menu</span>
+      <span aria-hidden="true">Close</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLDivElement>('[data-mobile-menu]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+
+  function openMenu() {
+    if (!menu || !toggle) return;
+    menu.hidden = false;
+    document.body.style.overflow = 'hidden';
+    toggle.setAttribute('aria-expanded', 'true');
+    const firstLink = menu.querySelector<HTMLAnchorElement>('a');
+    firstLink?.focus();
+  }
+
+  function closeMenu() {
+    if (!menu || !toggle) return;
+    menu.hidden = true;
+    document.body.style.overflow = '';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.focus();
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  closeBtn?.addEventListener('click', closeMenu);
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.hidden) {
+      closeMenu();
+    }
+  });
+
+  let lastPath = window.location.pathname;
+  window.addEventListener('popstate', () => {
+    if (window.location.pathname !== lastPath) closeMenu();
+    lastPath = window.location.pathname;
+  });
+</script>
+
+<style>
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--color-bg);
+  }
+
+  .mobile-menu__inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    position: relative;
+  }
+
+  .mobile-menu nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-menu nav a {
+    display: inline-block;
+    font-size: clamp(2.25rem, 9vw, 3rem);
+    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    padding-block: 0.15em;
+    color: var(--color-text);
+  }
+
+  .mobile-menu nav a:hover,
+  .mobile-menu nav a:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .mobile-menu__cta {
+    align-self: flex-start;
+  }
+
+  .mobile-menu__close {
+    position: fixed;
+    top: 1.35rem;
+    right: var(--container-pad);
+    background: transparent;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1.1rem;
+    font-size: var(--fs-small);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>

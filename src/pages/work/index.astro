@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import { projects } from '../../data/projects';
+
+const title = 'Work';
+const description =
+  'Selected work from BLACKFRAME LAB — self-initiated concept projects and an independent unsolicited redesign exploring premium website design and structure.';
+---
+
+<BaseLayout title={title} description={description} path="/work">
+  <section class="work-hero section">
+    <div class="container">
+      <SectionLabel index="01" label="Work" />
+      <h1 class="work-hero__title" data-reveal>A curated look at how the studio approaches structure and design.</h1>
+      <p class="work-hero__note text-secondary" data-reveal>
+        The projects below are self-initiated concept work and an independent unsolicited redesign,
+        used to demonstrate strategy, structure and design thinking. None represent a commissioned
+        client relationship — each project page states this clearly.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-border-top">
+    <div class="container work-index__grid">
+      {projects.map((project, i) => <ProjectCard project={project} index={`0${i + 1}`} />)}
+    </div>
+  </section>
+
+  <CTASection
+    heading="Have a website to build, redesign or fix?"
+    supporting="Tell us where the project stands today, and we'll take it from there."
+  />
+</BaseLayout>
+
+<style>
+  .work-hero {
+    padding-bottom: 0;
+  }
+
+  .work-hero__title {
+    font-size: var(--fs-h1);
+    max-width: 24ch;
+    margin-top: 1.5rem;
+  }
+
+  .work-hero__note {
+    margin-top: 1.5rem;
+    max-width: 58ch;
+    font-size: var(--fs-body-lg);
+  }
+
+  .work-index__grid {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    display: grid;
+    gap: 3.5rem 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .work-index__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

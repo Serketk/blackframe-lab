@@ -1,0 +1,131 @@
+---
+import type { ServiceOffer } from '../data/services';
+
+interface Props {
+  service: ServiceOffer;
+  reversed?: boolean;
+}
+
+const { service, reversed = false } = Astro.props;
+---
+
+<article class:list={['service-section', 'section-border-top', { 'service-section--reversed': reversed }]} id={service.slug}>
+  <div class="container service-section__grid">
+    <div class="service-section__intro">
+      <span class="service-section__index">{service.index}</span>
+      <h2 class="service-section__name" data-reveal>{service.name}</h2>
+      <p class="service-section__summary text-secondary" data-reveal>{service.summary}</p>
+
+      <dl class="service-section__who">
+        <dt class="eyebrow">Who it's for</dt>
+        <dd>{service.whoFor}</dd>
+      </dl>
+    </div>
+
+    <div class="service-section__details">
+      <div class="service-section__block">
+        <p class="eyebrow">Typical Scope</p>
+        <ul>
+          {service.typicalScope.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+
+      <div class="service-section__block">
+        <p class="eyebrow">What Blackframe Handles</p>
+        <ul>
+          {service.weHandle.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+
+      <div class="service-section__block">
+        <p class="eyebrow">Possible Deliverables</p>
+        <ul>
+          {service.deliverables.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .service-section {
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .service-section__grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .service-section__index {
+    display: block;
+    font-size: var(--fs-small);
+    color: var(--color-accent);
+    letter-spacing: var(--tracking-wide);
+    margin-bottom: 1rem;
+  }
+
+  .service-section__name {
+    font-size: var(--fs-h2);
+  }
+
+  .service-section__summary {
+    margin-top: 1rem;
+    font-size: var(--fs-body-lg);
+    max-width: 42ch;
+  }
+
+  .service-section__who {
+    margin-top: 2rem;
+  }
+
+  .service-section__who dd {
+    margin: 0.5rem 0 0;
+    max-width: 40ch;
+  }
+
+  .service-section__details {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .service-section__block ul {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .service-section__block li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+  }
+
+  .service-section__block li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 1px;
+    background: var(--color-text-muted);
+  }
+
+  @media (min-width: 640px) {
+    .service-section__details {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .service-section__grid {
+      grid-template-columns: 0.85fr 1.15fr;
+    }
+
+    .service-section--reversed .service-section__intro {
+      order: 2;
+    }
+  }
+</style>

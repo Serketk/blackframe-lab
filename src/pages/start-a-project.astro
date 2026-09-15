@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import { siteMeta } from '../data/nav';
+
+const title = 'Start a Project';
+const description =
+  'Tell us about your project — new website, redesign, landing page, or ongoing website care — and we will take it from there.';
+---
+
+<BaseLayout title={title} description={description} path="/start-a-project">
+  <section class="start-hero section">
+    <div class="container start-hero__grid">
+      <div>
+        <SectionLabel index="01" label="Start a Project" />
+        <h1 class="start-hero__title" data-reveal>Tell us about the project.</h1>
+        <p class="start-hero__note text-secondary" data-reveal>
+          A few details on where things stand today is enough to start a conversation. We'll
+          follow up directly by email.
+        </p>
+        <p class="start-hero__alt text-secondary" data-reveal>
+          Prefer email? Write to
+          <a href={`mailto:${siteMeta.email}`}>{siteMeta.email}</a>.
+        </p>
+      </div>
+
+      <div>
+        <InquiryForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .start-hero__grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .start-hero__title {
+    font-size: var(--fs-h1);
+    max-width: 16ch;
+    margin-top: 1.5rem;
+  }
+
+  .start-hero__note {
+    margin-top: 1.5rem;
+    font-size: var(--fs-body-lg);
+    max-width: 40ch;
+  }
+
+  .start-hero__alt {
+    margin-top: 1.5rem;
+    font-size: var(--fs-small);
+  }
+
+  .start-hero__alt a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (min-width: 1024px) {
+    .start-hero__grid {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+  }
+</style>

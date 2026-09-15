@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import ServiceSection from '../components/ServiceSection.astro';
+import CTASection from '../components/CTASection.astro';
+import { services, capabilities, engagementProcess, additionalDigitalSupport } from '../data/services';
+
+const title = 'Services';
+const description =
+  'New websites, website redesigns, landing pages, and website care and growth — from first structure through to long after launch.';
+---
+
+<BaseLayout title={title} description={description} path="/services">
+  <section class="services-hero section">
+    <div class="container">
+      <SectionLabel index="01" label="Services" />
+      <h1 class="services-hero__title" data-reveal>Websites from first structure to long after launch.</h1>
+      <p class="services-hero__note text-secondary" data-reveal>
+        Four ways to work with the studio, depending on where the project stands today.
+      </p>
+    </div>
+  </section>
+
+  <div class="services-list">
+    {services.map((service, i) => <ServiceSection service={service} reversed={i % 2 === 1} />)}
+  </div>
+
+  <section class="section section-border-top">
+    <div class="container">
+      <SectionLabel index="05" label="Additional Digital Support" />
+      <p class="additional-support__note text-secondary" data-reveal>
+        A secondary capability, available alongside a website project when a campaign needs it.
+      </p>
+      <div class="additional-support__grid">
+        {
+          additionalDigitalSupport.map((item) => (
+            <div class="additional-support__item" data-reveal>
+              <h3>{item.name}</h3>
+              <p class="text-secondary">{item.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-border-top capabilities">
+    <div class="container">
+      <SectionLabel index="06" label="Capabilities" />
+      <ul class="capabilities__list">
+        {capabilities.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-border-top process">
+    <div class="container">
+      <SectionLabel index="07" label="Engagement Process" />
+      <ol class="process__list">
+        {
+          engagementProcess.map((stage) => (
+            <li data-reveal>
+              <span class="process__index">{stage.index}</span>
+              <h3>{stage.name}</h3>
+              <p class="text-secondary">{stage.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Not sure which one fits?"
+    supporting="Tell us where the project stands and we'll help you figure out the right scope."
+  />
+</BaseLayout>
+
+<style>
+  .services-hero {
+    padding-bottom: 0;
+  }
+
+  .services-hero__title {
+    font-size: var(--fs-h1);
+    max-width: 22ch;
+    margin-top: 1.5rem;
+  }
+
+  .services-hero__note {
+    margin-top: 1.5rem;
+    font-size: var(--fs-body-lg);
+    max-width: 48ch;
+  }
+
+  .additional-support__note {
+    margin-top: 1.5rem;
+    max-width: 48ch;
+    font-size: var(--fs-body-lg);
+  }
+
+  .additional-support__grid {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    display: grid;
+    gap: 2rem;
+  }
+
+  .additional-support__item {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .additional-support__item h3 {
+    font-size: var(--fs-h4);
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: 768px) {
+    .additional-support__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .capabilities__list {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .capabilities__list li {
+    font-size: var(--fs-small);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .process__list {
+    margin-top: clamp(2rem, 4vw, 3.5rem);
+    display: grid;
+    gap: 2.25rem;
+  }
+
+  .process__list li {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .process__index {
+    display: block;
+    font-size: var(--fs-small);
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .process__list h3 {
+    font-size: var(--fs-h4);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .process__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .process__list {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+</style>

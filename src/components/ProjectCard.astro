@@ -1,0 +1,79 @@
+---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  index?: string;
+}
+
+const { project, index } = Astro.props;
+---
+
+<a href={`/work/${project.slug}`} class="project-card" data-reveal>
+  <div class="project-card__media">
+    <ImagePlaceholder ratio="4 / 3" label={project.title} index={index} />
+  </div>
+  <div class="project-card__body">
+    <div class="project-card__heading">
+      <h3 class="project-card__title">{project.title}</h3>
+      <span class="project-card__year">{project.year}</span>
+    </div>
+    <p class="project-card__category text-secondary">{project.category}</p>
+    <p class="project-card__type">{project.type}</p>
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    color: inherit;
+  }
+
+  .project-card__media {
+    overflow: hidden;
+  }
+
+  .project-card__media :global(.image-placeholder) {
+    transition: transform var(--duration-slow) var(--ease-standard);
+  }
+
+  .project-card:hover .project-card__media :global(.image-placeholder) {
+    transform: scale(1.03);
+  }
+
+  .project-card__body {
+    padding-top: 1.25rem;
+  }
+
+  .project-card__heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .project-card__title {
+    font-size: var(--fs-h3);
+  }
+
+  .project-card__year {
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .project-card__category {
+    margin-top: 0.4rem;
+    font-size: var(--fs-small);
+  }
+
+  .project-card__type {
+    margin-top: 0.6rem;
+    display: inline-flex;
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+</style>

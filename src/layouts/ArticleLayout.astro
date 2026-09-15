@@ -1,0 +1,157 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import CTASection from '../components/CTASection.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { siteMeta } from '../data/nav';
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'insights'>;
+  related?: CollectionEntry<'insights'>;
+}
+
+const { entry, related } = Astro.props;
+const { title, intro, date, readingTime, topic } = entry.data;
+const { Content } = await render(entry);
+
+const path = `/insights/${entry.id}`;
+const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      headline: title,
+      description: intro,
+      datePublished: date.toISOString(),
+      author: { '@type': 'Organization', name: siteMeta.name },
+      publisher: { '@type': 'Organization', name: siteMeta.name },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Insights', item: `${siteMeta.url}/insights` },
+        { '@type': 'ListItem', position: 2, name: title, item: `${siteMeta.url}${path}` },
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={intro} path={path} type="article">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <article class="article section">
+    <div class="container container--article">
+      <p class="article__meta">
+        <span class="article__topic">{topic}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={date.toISOString()}>{formattedDate}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime}</span>
+      </p>
+      <h1 class="article__title">{title}</h1>
+      <p class="article__intro text-secondary">{intro}</p>
+
+      <div class="article__body">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  {
+    related && (
+      <section class="section-border-top">
+        <div class="container container--article">
+          <p class="eyebrow">Related</p>
+          <div class="article__related">
+            <ArticleCard article={related} />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CTASection
+    heading="Have a website to build, redesign or fix?"
+    supporting="Tell us where the project stands today, and we'll take it from there."
+  />
+</BaseLayout>
+
+<style>
+  .container--article {
+    max-width: 46rem;
+  }
+
+  .article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .article__topic {
+    color: var(--color-accent);
+  }
+
+  .article__title {
+    margin-top: 1.25rem;
+    font-size: var(--fs-h1);
+  }
+
+  .article__intro {
+    margin-top: 1.5rem;
+    font-size: var(--fs-body-lg);
+  }
+
+  .article__body {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body);
+  }
+
+  .article__body :global(h2) {
+    font-size: var(--fs-h3);
+    margin-top: 1rem;
+  }
+
+  .article__body :global(p) {
+    color: var(--color-text-secondary);
+  }
+
+  .article__body :global(ul),
+  .article__body :global(ol) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-left: 1.25rem;
+    color: var(--color-text-secondary);
+  }
+
+  .article__body :global(li) {
+    list-style: disc;
+  }
+
+  .article__body :global(strong) {
+    color: var(--color-text);
+  }
+
+  .article__related {
+    margin-top: 1rem;
+  }
+
+  .article__related :global(.article-card) {
+    border-top: none;
+    padding-top: 0;
+  }
+</style>

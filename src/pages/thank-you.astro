@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+
+const title = 'Thank You';
+const description = 'Your project inquiry has been received. We will follow up directly by email.';
+---
+
+<BaseLayout title={title} description={description} path="/thank-you" noindex={true}>
+  <section class="thank-you section">
+    <div class="container">
+      <SectionLabel index="—" label="Inquiry Received" />
+      <h1 class="thank-you__title" data-reveal>Thank you. We've received your project details.</h1>
+      <p class="thank-you__note text-secondary" data-reveal>
+        We'll review what you've shared and follow up directly by email, usually within one to
+        two business days.
+      </p>
+      <a href="/" class="btn btn-secondary thank-you__link">Back to Home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thank-you {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .thank-you__title {
+    font-size: var(--fs-h1);
+    max-width: 20ch;
+    margin-top: 1.5rem;
+  }
+
+  .thank-you__note {
+    margin-top: 1.5rem;
+    font-size: var(--fs-body-lg);
+    max-width: 44ch;
+  }
+
+  .thank-you__link {
+    margin-top: 2.25rem;
+  }
+</style>
