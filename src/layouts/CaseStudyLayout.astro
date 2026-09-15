@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import ProjectHero from '../components/ProjectHero.astro';
 import ProjectMeta from '../components/ProjectMeta.astro';
-import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import BrowserMockup from '../components/BrowserMockup.astro';
 import CTASection from '../components/CTASection.astro';
 import { siteMeta } from '../data/nav';
 import type { Project } from '../data/projects';
@@ -109,8 +109,11 @@ const jsonLd = {
           {
             project.keyScreens.map((screen) => (
               <figure>
-                <ImagePlaceholder ratio="16 / 10" label={screen.label} />
-                <figcaption class="text-secondary">{screen.description}</figcaption>
+                <BrowserMockup variant={project.artVariant} />
+                <figcaption>
+                  <strong>{screen.label}</strong>
+                  <span class="text-secondary"> — {screen.description}</span>
+                </figcaption>
               </figure>
             ))
           }
@@ -124,8 +127,8 @@ const jsonLd = {
           <p>{project.responsive}</p>
         </div>
         <div class="case-section__responsive-media">
-          <ImagePlaceholder ratio="16 / 10" label="Desktop view" />
-          <ImagePlaceholder ratio="9 / 16" label="Mobile view" />
+          <BrowserMockup variant={project.artVariant} device="desktop" label="Desktop" />
+          <BrowserMockup variant={project.artVariant} device="mobile" label="Mobile" />
         </div>
       </section>
 

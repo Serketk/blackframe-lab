@@ -307,12 +307,16 @@ const jsonLd = {
     align-items: center;
     gap: 0.5rem 1.5rem;
     padding-block: 2rem;
+    padding-inline: 0.75rem;
+    margin-inline: -0.75rem;
     border-bottom: 1px solid var(--color-border);
-    transition: padding-left var(--duration-base) var(--ease-standard);
+    transition: padding-left var(--duration-base) var(--ease-standard),
+      background var(--duration-base) var(--ease-standard);
   }
 
   .offer__item:hover {
-    padding-left: 0.75rem;
+    padding-left: 1.5rem;
+    background: var(--color-surface);
   }
 
   .offer__item:hover .offer__arrow {

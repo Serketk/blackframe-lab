@@ -34,13 +34,18 @@ const formattedDate = date.toLocaleDateString('en-US', {
 <style>
   .article-card {
     display: block;
-    padding-block: 2rem;
+    padding: 2rem 1.25rem;
+    margin-inline: -1.25rem;
     border-top: 1px solid var(--color-border);
-    transition: opacity var(--duration-fast) var(--ease-standard);
+    transition: background var(--duration-base) var(--ease-standard);
   }
 
   .article-card:hover {
-    opacity: 0.75;
+    background: var(--color-surface);
+  }
+
+  .article-card:hover .article-card__title {
+    color: var(--color-accent);
   }
 
   .article-card__meta {
@@ -61,6 +66,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
     margin-top: 1rem;
     font-size: var(--fs-h3);
     max-width: 32ch;
+    transition: color var(--duration-fast) var(--ease-standard);
   }
 
   .article-card__intro {

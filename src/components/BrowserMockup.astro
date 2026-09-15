@@ -1,0 +1,177 @@
+---
+import type { ArtVariant } from './ArtDirection.astro';
+
+interface Props {
+  variant: ArtVariant;
+  device?: 'desktop' | 'mobile';
+  label?: string;
+}
+
+const { variant, device = 'desktop', label } = Astro.props;
+---
+
+<figure class:list={['browser-mockup', `browser-mockup--${device}`, `browser-mockup--${variant}`]}>
+  <div class="browser-mockup__chrome">
+    <span></span><span></span><span></span>
+    <div class="browser-mockup__address"></div>
+  </div>
+  <div class="browser-mockup__body" aria-hidden="true">
+    <div class="browser-mockup__nav">
+      <div class="browser-mockup__logo"></div>
+      <div class="browser-mockup__navlinks">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="browser-mockup__hero">
+      <div class="browser-mockup__eyebrow"></div>
+      <div class="browser-mockup__headline"></div>
+      <div class="browser-mockup__headline browser-mockup__headline--short"></div>
+      <div class="browser-mockup__cta"></div>
+    </div>
+    <div class="browser-mockup__grid">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+  {label && <figcaption class="browser-mockup__label">{label}</figcaption>}
+</figure>
+
+<style>
+  .browser-mockup {
+    margin: 0;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    overflow: hidden;
+  }
+
+  .browser-mockup__chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .browser-mockup__chrome span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+  }
+
+  .browser-mockup__address {
+    margin-left: 0.75rem;
+    height: 8px;
+    width: 40%;
+    border-radius: 2px;
+    background: var(--color-border);
+  }
+
+  .browser-mockup__body {
+    padding: 1.5rem;
+    background: linear-gradient(160deg, var(--color-surface-raised), var(--color-surface) 75%);
+  }
+
+  .browser-mockup--mobile .browser-mockup__body {
+    padding: 1rem;
+  }
+
+  .browser-mockup__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .browser-mockup__logo {
+    width: 20%;
+    height: 8px;
+    background: var(--color-text-muted);
+    border-radius: 1px;
+  }
+
+  .browser-mockup__navlinks {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .browser-mockup--mobile .browser-mockup__navlinks {
+    display: none;
+  }
+
+  .browser-mockup__navlinks span {
+    display: block;
+    width: 32px;
+    height: 6px;
+    border-radius: 1px;
+    background: var(--color-border-strong);
+  }
+
+  .browser-mockup__eyebrow {
+    width: 30%;
+    height: 6px;
+    border-radius: 1px;
+    background: var(--color-accent);
+    opacity: 0.8;
+    margin-bottom: 0.9rem;
+  }
+
+  .browser-mockup__headline {
+    height: 14px;
+    width: 78%;
+    border-radius: 2px;
+    background: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .browser-mockup__headline--short {
+    width: 48%;
+    margin-bottom: 1.25rem;
+  }
+
+  .browser-mockup__cta {
+    width: 96px;
+    height: 24px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 2px;
+  }
+
+  .browser-mockup__grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .browser-mockup--mobile .browser-mockup__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .browser-mockup--mobile .browser-mockup__grid div:last-child {
+    display: none;
+  }
+
+  .browser-mockup__grid div {
+    aspect-ratio: 4 / 3;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+  }
+
+  .browser-mockup--wellness .browser-mockup__eyebrow,
+  .browser-mockup--wellness .browser-mockup__cta {
+    border-radius: 12px;
+  }
+
+  .browser-mockup--wellness .browser-mockup__grid div {
+    border-radius: 50%;
+    aspect-ratio: 1;
+  }
+
+  .browser-mockup__label {
+    padding: 0.85rem 1.1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+  }
+</style>

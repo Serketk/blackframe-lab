@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import CTASection from '../components/CTASection.astro';
-import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import ArtDirection from '../components/ArtDirection.astro';
 import { experienceCapabilities, differentiators } from '../data/services';
 
 const title = 'Studio';
@@ -38,7 +38,7 @@ const experienceAreas = [
           product, done properly.
         </p>
       </div>
-      <ImagePlaceholder ratio="4 / 5" label="Studio portrait" />
+      <ArtDirection variant="signature" ratio="4 / 5" />
     </div>
   </section>
 
@@ -107,8 +107,8 @@ const experienceAreas = [
   </section>
 
   <CTASection
-    heading="Have a website to build, redesign or fix?"
-    supporting="Tell us where the project stands today, and we'll take it from there."
+    heading="Think we might be a fit?"
+    supporting="Start with a short description of the project — the rest follows from there."
   />
 </BaseLayout>
 

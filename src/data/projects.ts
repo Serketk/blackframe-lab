@@ -5,12 +5,15 @@ export interface ProjectSection {
   body: string[];
 }
 
+export type ArtVariant = 'architecture' | 'wellness' | 'professional';
+
 export interface Project {
   slug: string;
   title: string;
   type: ProjectType;
   category: string;
   year: string;
+  artVariant: ArtVariant;
   scope: string[];
   summary: string;
   featured: boolean;
@@ -42,6 +45,7 @@ export const projects: Project[] = [
     type: 'Self-Initiated Project',
     category: 'Architecture / Interior Studio',
     year: '2025',
+    artVariant: 'architecture',
     scope: [
       'Strategy',
       'Information Architecture',
@@ -114,6 +118,7 @@ export const projects: Project[] = [
     type: 'Self-Initiated Project',
     category: 'Premium Wellness Service',
     year: '2025',
+    artVariant: 'wellness',
     scope: [
       'Conversion Strategy',
       'Information Hierarchy',
@@ -184,6 +189,7 @@ export const projects: Project[] = [
     type: 'Unsolicited Redesign',
     category: 'Professional Services',
     year: '2025',
+    artVariant: 'professional',
     scope: [
       'Website Audit',
       'UX Restructuring',

@@ -1,5 +1,5 @@
 ---
-import ImagePlaceholder from './ImagePlaceholder.astro';
+import ArtDirection from './ArtDirection.astro';
 import type { Project } from '../data/projects';
 
 interface Props {
@@ -21,7 +21,7 @@ const { project } = Astro.props;
   </div>
 
   <div class="project-hero__media">
-    <ImagePlaceholder ratio="16 / 9" label={`${project.title} — hero image`} />
+    <ArtDirection variant={project.artVariant} ratio="16 / 9" />
   </div>
 </section>
 
