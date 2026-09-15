@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blackframelab.netlify.app/sitemap-index.xml
+Sitemap: https://blackframe-lab.netlify.app/sitemap-index.xml

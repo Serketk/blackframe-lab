@@ -23,7 +23,7 @@ export const siteMeta = {
   tagline: 'Websites designed beyond launch.',
   description:
     'BLACKFRAME LAB is an independent web design studio. We design, build and evolve websites for brands that need a stronger digital presence.',
-  url: 'https://blackframelab.netlify.app',
+  url: 'https://blackframe-lab.netlify.app',
   email: 'studio@blackframelab.com',
   locale: 'en',
 };

@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://blackframelab.netlify.app',
+  site: 'https://blackframe-lab.netlify.app',
   trailingSlash: 'never',
   integrations: [
     sitemap({
