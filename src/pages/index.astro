@@ -4,6 +4,7 @@ import SectionLabel from '../components/SectionLabel.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CTASection from '../components/CTASection.astro';
+import ArtDirection from '../components/ArtDirection.astro';
 import { featuredProjects } from '../data/projects';
 import { services, lifecycleStages, differentiators, experienceCapabilities } from '../data/services';
 import { getCollection } from 'astro:content';
@@ -41,20 +42,25 @@ const jsonLd = {
 
   <!-- SECTION 01 — HERO -->
   <section class="hero">
-    <div class="container hero__inner">
-      <p class="eyebrow hero__eyebrow">Independent Web Design Studio</p>
-      <h1 class="hero__title">
-        BLACKFRAME <span class="hero__title-accent">LAB</span>
-        <span class="hero__title-line">Websites designed beyond launch.</span>
-      </h1>
-      <p class="hero__supporting">
-        We design, build and evolve websites for brands that need a stronger digital presence.
-      </p>
-      <div class="hero__actions">
-        <a href="/work" class="btn btn-primary">
-          View Work <span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="/start-a-project" class="btn btn-secondary">Start a Project</a>
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <SectionLabel label="Independent Web Design Studio" />
+        <h1 class="hero__title">
+          BLACKFRAME <span class="hero__title-accent">LAB</span>
+          <span class="hero__title-line">Websites designed beyond launch.</span>
+        </h1>
+        <p class="hero__supporting">
+          We design, build and evolve websites for brands that need a stronger digital presence.
+        </p>
+        <div class="hero__actions">
+          <a href="/work" class="btn btn-primary">
+            View Work <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="/start-a-project" class="btn btn-secondary">Start a Project</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <ArtDirection variant="signature" ratio="4 / 5" />
       </div>
     </div>
     <div class="hero__model">
@@ -63,6 +69,28 @@ const jsonLd = {
       <span>Build</span>
       <span>Launch</span>
       <span>Grow</span>
+    </div>
+  </section>
+
+  <!-- STAT BAND -->
+  <section class="section-border-top stat-band">
+    <div class="container stat-band__grid">
+      <div class="stat-band__item" data-reveal>
+        <p class="stat-band__number">5+</p>
+        <p class="text-secondary">Years of hands-on experience</p>
+      </div>
+      <div class="stat-band__item" data-reveal>
+        <p class="stat-band__number">4</p>
+        <p class="text-secondary">Core service offers</p>
+      </div>
+      <div class="stat-band__item" data-reveal>
+        <p class="stat-band__number">5</p>
+        <p class="text-secondary">Stages, strategy through grow</p>
+      </div>
+      <div class="stat-band__item" data-reveal>
+        <p class="stat-band__number">1</p>
+        <p class="text-secondary">Point of direct contact</p>
+      </div>
     </div>
   </section>
 
@@ -96,10 +124,12 @@ const jsonLd = {
         {
           services.map((service) => (
             <a href={`/services#${service.slug}`} class="offer__item" data-reveal>
-              <span class="offer__index">{service.index}</span>
+              <span class="offer__chip" aria-hidden="true">{service.index}</span>
               <span class="offer__name">{service.name}</span>
               <span class="offer__summary text-secondary">{service.summary}</span>
-              <span class="btn-arrow offer__arrow" aria-hidden="true">→</span>
+              <span class="offer__link">
+                Learn more <span class="btn-arrow offer__arrow" aria-hidden="true">→</span>
+              </span>
             </a>
           ))
         }
@@ -192,8 +222,18 @@ const jsonLd = {
     padding-bottom: clamp(3rem, 6vw, 5rem);
   }
 
-  .hero__eyebrow {
+  .hero__grid {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  .hero__content :global(.section-label) {
     margin-bottom: 1.75rem;
+  }
+
+  .hero__visual {
+    max-width: 22rem;
   }
 
   .hero__title {
@@ -250,6 +290,17 @@ const jsonLd = {
     border-right: none;
   }
 
+  @media (min-width: 1024px) {
+    .hero__grid {
+      grid-template-columns: 1.3fr 1fr;
+    }
+
+    .hero__visual {
+      max-width: none;
+      width: 100%;
+    }
+  }
+
   @media (min-width: 640px) {
     .hero__model {
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -280,6 +331,29 @@ const jsonLd = {
     color: var(--color-text);
   }
 
+  .stat-band {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .stat-band__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .stat-band__number {
+    font-size: var(--fs-h1);
+    color: var(--color-accent);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: 768px) {
+    .stat-band__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
   .work-grid {
     display: grid;
     gap: 2.5rem 2rem;
@@ -299,33 +373,46 @@ const jsonLd = {
 
   .offer__list {
     margin-top: clamp(2.5rem, 5vw, 4rem);
-    border-top: 1px solid var(--color-border);
+    display: grid;
+    gap: 1.5rem;
   }
 
   .offer__item {
-    display: grid;
-    align-items: center;
-    gap: 0.5rem 1.5rem;
-    padding-block: 2rem;
-    padding-inline: 0.75rem;
-    margin-inline: -0.75rem;
-    border-bottom: 1px solid var(--color-border);
-    transition: padding-left var(--duration-base) var(--ease-standard),
-      background var(--duration-base) var(--ease-standard);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    transition: border-color var(--duration-base) var(--ease-standard),
+      transform var(--duration-base) var(--ease-standard),
+      box-shadow var(--duration-base) var(--ease-standard);
   }
 
   .offer__item:hover {
-    padding-left: 1.5rem;
-    background: var(--color-surface);
+    border-color: var(--color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.6);
   }
 
   .offer__item:hover .offer__arrow {
     transform: translateX(3px);
   }
 
-  .offer__index {
-    font-size: var(--fs-small);
+  .offer__chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: var(--radius-md);
+    background: var(--color-accent-soft);
     color: var(--color-accent);
+    font-size: var(--fs-small);
+    font-weight: 600;
   }
 
   .offer__name {
@@ -333,17 +420,27 @@ const jsonLd = {
   }
 
   .offer__summary {
-    max-width: 52ch;
+    max-width: 42ch;
+  }
+
+  .offer__link {
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: var(--fs-small);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text);
   }
 
   .offer__arrow {
-    justify-self: end;
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   @media (min-width: 768px) {
-    .offer__item {
-      grid-template-columns: 3rem 1fr 2.2fr 2rem;
+    .offer__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 

@@ -173,9 +173,9 @@ select:focus-visible,
   font-size: var(--fs-small);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  padding: 0.9em 1.6em;
+  padding: 0.9em 1.7em;
   border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   transition: border-color var(--duration-fast) var(--ease-standard),
     background var(--duration-fast) var(--ease-standard),
     color var(--duration-fast) var(--ease-standard),
@@ -185,27 +185,29 @@ select:focus-visible,
 }
 
 .btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+  border-color: var(--color-accent);
+}
+
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--color-accent) 85%, white);
+  border-color: color-mix(in srgb, var(--color-accent) 85%, white);
+  color: var(--color-accent-text);
+  box-shadow: 0 10px 30px -10px var(--color-accent-soft), 0 10px 30px -12px rgba(232, 67, 46, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
   background: var(--color-text);
   color: var(--color-bg);
   border-color: var(--color-text);
 }
 
-.btn-primary:hover {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-bg);
-  box-shadow: 0 10px 30px -12px rgba(176, 141, 87, 0.45);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--color-text);
-}
-
 .btn-secondary:hover {
   border-color: var(--color-text);
   background: var(--color-surface-raised);
+  color: var(--color-text);
   transform: translateY(-1px);
 }
 

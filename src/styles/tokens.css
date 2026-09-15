@@ -11,9 +11,10 @@
   --color-text-secondary: #9a978e;
   --color-text-muted: #6b6963;
 
-  /* accent — used sparingly */
-  --color-accent: #b08d57;
-  --color-accent-soft: rgba(176, 141, 87, 0.16);
+  /* accent */
+  --color-accent: #e8432e;
+  --color-accent-soft: rgba(232, 67, 46, 0.14);
+  --color-accent-text: #ffffff;
 
   /* semantic */
   --color-focus: #f2f0ec;
@@ -47,6 +48,7 @@
   --section-pad-y: clamp(4rem, 9vw, 8rem);
   --radius-sm: 2px;
   --radius-md: 4px;
+  --radius-pill: 999px;
 
   /* motion */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
