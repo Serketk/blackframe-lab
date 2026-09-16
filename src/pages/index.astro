@@ -5,10 +5,19 @@ import ProjectCard from '../components/ProjectCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CTASection from '../components/CTASection.astro';
 import ArtDirection from '../components/ArtDirection.astro';
+import CapabilityMarquee from '../components/CapabilityMarquee.astro';
 import { featuredProjects } from '../data/projects';
 import { services, lifecycleStages, differentiators, experienceCapabilities } from '../data/services';
+import type { ArtVariant } from '../components/ArtDirection.astro';
 import { getCollection } from 'astro:content';
 import { siteMeta } from '../data/nav';
+
+const visualStrip: { variant: ArtVariant; label: string }[] = [
+  { variant: 'architecture', label: 'Structure' },
+  { variant: 'wellness', label: 'Experience' },
+  { variant: 'professional', label: 'Clarity' },
+  { variant: 'signature', label: 'Identity' },
+];
 
 const allArticles = (await getCollection('insights', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -40,7 +49,7 @@ const jsonLd = {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </Fragment>
 
-  <!-- SECTION 01 — HERO -->
+  <!-- HERO -->
   <section class="hero">
     <div class="container hero__grid">
       <div class="hero__content">
@@ -72,52 +81,68 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- STAT BAND -->
+  <!-- CAPABILITY STRIP (replaces a client-logo strip — no fabricated client relationships) -->
+  <section class="section-border-top">
+    <CapabilityMarquee items={experienceCapabilities} label="Platforms & Tools We Work In" />
+  </section>
+
+  <!-- WHO WE ARE -->
+  <section class="section-border-top who">
+    <div class="container who__grid">
+      <SectionLabel label="Who We Are" />
+      <h2 class="who__heading" data-reveal>
+        We build <span class="who__heading-fade">structured, production-ready websites</span> for
+        <span class="who__heading-fade">brands that need a stronger digital presence.</span>
+      </h2>
+      <a href="/studio" class="who__link">
+        About the Studio <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- VISUAL STRIP -->
+  <section class="section-border-top visual-strip">
+    <div class="visual-strip__grid">
+      {
+        visualStrip.map((item) => (
+          <div class="visual-strip__item" data-reveal>
+            <ArtDirection variant={item.variant} ratio="3 / 4" />
+            <span class="visual-strip__label">{item.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- BY THE NUMBERS -->
   <section class="section-border-top stat-band">
-    <div class="container stat-band__grid">
-      <div class="stat-band__item" data-reveal>
-        <p class="stat-band__number">5+</p>
-        <p class="text-secondary">Years of hands-on experience</p>
-      </div>
-      <div class="stat-band__item" data-reveal>
-        <p class="stat-band__number">4</p>
-        <p class="text-secondary">Core service offers</p>
-      </div>
-      <div class="stat-band__item" data-reveal>
-        <p class="stat-band__number">5</p>
-        <p class="text-secondary">Stages, strategy through grow</p>
-      </div>
-      <div class="stat-band__item" data-reveal>
-        <p class="stat-band__number">1</p>
-        <p class="text-secondary">Point of direct contact</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 02 — SELECTED WORK -->
-  <section class="section section-border-top">
     <div class="container">
-      <div class="section-heading">
-        <SectionLabel index="02" label="Selected Work" />
-        <a href="/work" class="section-heading__link">
-          View all work <span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
-
-      <div class="work-grid">
-        {
-          featuredProjects.map((project, i) => (
-            <ProjectCard project={project} index={`0${i + 1}`} />
-          ))
-        }
+      <SectionLabel label="By the Numbers" />
+      <div class="stat-band__grid">
+        <div class="stat-band__item" data-reveal>
+          <p class="stat-band__number">5+</p>
+          <p class="text-secondary">Years of hands-on experience</p>
+        </div>
+        <div class="stat-band__item" data-reveal>
+          <p class="stat-band__number">4</p>
+          <p class="text-secondary">Core service offers</p>
+        </div>
+        <div class="stat-band__item" data-reveal>
+          <p class="stat-band__number">5</p>
+          <p class="text-secondary">Stages, strategy through grow</p>
+        </div>
+        <div class="stat-band__item" data-reveal>
+          <p class="stat-band__number">1</p>
+          <p class="text-secondary">Point of direct contact</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 03 — CORE OFFER -->
+  <!-- SERVICES -->
   <section class="section section-border-top offer">
     <div class="container">
-      <SectionLabel index="03" label="Core Offer" />
+      <SectionLabel label="Services" />
       <h2 class="offer__heading" data-reveal>Four ways to work with the studio.</h2>
 
       <div class="offer__list">
@@ -137,10 +162,30 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- SECTION 04 — FULL-SCOPE WEB CAPABILITY -->
+  <!-- SELECTED WORK -->
+  <section class="section section-border-top">
+    <div class="container">
+      <div class="section-heading">
+        <SectionLabel label="Selected Work" />
+        <a href="/work" class="section-heading__link">
+          View all work <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="work-grid">
+        {
+          featuredProjects.map((project, i) => (
+            <ProjectCard project={project} index={`0${i + 1}`} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL-SCOPE WEB CAPABILITY -->
   <section class="section section-border-top lifecycle">
     <div class="container">
-      <SectionLabel index="04" label="Full-Scope Web Capability" />
+      <SectionLabel label="Full-Scope Web Capability" />
       <h2 class="lifecycle__heading" data-reveal>One partner from first structure to post-launch evolution.</h2>
 
       <ol class="lifecycle__list">
@@ -157,11 +202,11 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- SECTION 05 — WHY BLACKFRAME -->
+  <!-- WHY BLACKFRAME -->
   <section class="section section-border-top why">
     <div class="container why__grid">
       <div>
-        <SectionLabel index="05" label="Why Blackframe" />
+        <SectionLabel label="Why Blackframe" />
         <h2 class="why__heading" data-reveal>Tangible reasons, not agency claims.</h2>
       </div>
       <ul class="why__list">
@@ -177,10 +222,10 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- SECTION 06 — EXPERIENCE -->
+  <!-- EXPERIENCE -->
   <section class="section section-border-top experience">
     <div class="container">
-      <SectionLabel index="06" label="Experience" />
+      <SectionLabel label="Experience" />
       <h2 class="experience__heading" data-reveal>
         5+ years of hands-on experience across web, UX/UI and digital production.
       </h2>
@@ -190,13 +235,13 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- SECTION 07 — INSIGHTS -->
+  <!-- INSIGHTS -->
   {
     latestArticles.length > 0 && (
       <section class="section section-border-top">
         <div class="container">
           <div class="section-heading">
-            <SectionLabel index="07" label="Insights" />
+            <SectionLabel label="Insights" />
             <a href="/insights" class="section-heading__link">
               All insights <span class="btn-arrow" aria-hidden="true">→</span>
             </a>
@@ -209,7 +254,7 @@ const jsonLd = {
     )
   }
 
-  <!-- SECTION 08 — FINAL CTA -->
+  <!-- FINAL CTA -->
   <CTASection
     heading="Have a website to build, redesign or fix?"
     supporting="Tell us where the project stands today, and we'll take it from there."
@@ -331,11 +376,79 @@ const jsonLd = {
     color: var(--color-text);
   }
 
+  .who {
+    padding-block: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .who__grid {
+    max-width: 52rem;
+  }
+
+  .who__heading {
+    margin-top: 1.5rem;
+    font-size: var(--fs-h2);
+    line-height: var(--lh-heading);
+  }
+
+  .who__heading-fade {
+    color: var(--color-text-secondary);
+  }
+
+  .who__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-top: 1.75rem;
+    font-size: var(--fs-small);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .who__link:hover {
+    color: var(--color-accent);
+  }
+
+  .visual-strip__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--color-border);
+  }
+
+  .visual-strip__item {
+    position: relative;
+    background: var(--color-bg);
+  }
+
+  .visual-strip__item :global(.art-direction) {
+    border: none;
+  }
+
+  .visual-strip__label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .visual-strip__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
   .stat-band {
     padding-block: clamp(2.5rem, 5vw, 4rem);
   }
 
   .stat-band__grid {
+    margin-top: clamp(2rem, 4vw, 3rem);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;

@@ -1,0 +1,88 @@
+---
+interface Props {
+  items: string[];
+  label?: string;
+}
+
+const { items, label = 'Platforms & Tools We Work In' } = Astro.props;
+const loop = [...items, ...items];
+---
+
+<div class="marquee">
+  {label && <p class="marquee__label text-secondary">{label}</p>}
+  <div class="marquee__track" role="list">
+    <div class="marquee__group" aria-hidden="true">
+      {loop.map((item) => <span role="listitem">{item}</span>)}
+    </div>
+    <div class="marquee__group" aria-hidden="true">
+      {loop.map((item) => <span role="listitem">{item}</span>)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .marquee {
+    padding-block: clamp(2rem, 4vw, 3rem);
+    overflow: hidden;
+  }
+
+  .marquee__label {
+    text-align: center;
+    font-size: var(--fs-small);
+    margin-bottom: 1.5rem;
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+
+  .marquee__group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .marquee__group span {
+    font-size: var(--fs-h4);
+    color: var(--color-text-muted);
+    padding-inline: 2rem;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .marquee__group span::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track {
+      animation: none;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .marquee__group:last-child {
+      display: none;
+    }
+  }
+</style>
