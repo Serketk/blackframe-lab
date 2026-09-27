@@ -10,7 +10,7 @@ function isActive(href: string) {
 ---
 
 <header class="site-header" data-site-header>
-  <div class="container site-header__inner">
+  <div class="site-header__inner">
     <a href="/" class="site-header__logo" aria-label={`${siteMeta.name} — Home`}>
       <span class="site-header__logo-full">BLACKFRAME</span>
       <span class="site-header__logo-lab">LAB</span>
@@ -54,16 +54,24 @@ function isActive(href: string) {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(11, 11, 10, 0.88);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--color-border);
+    padding: 1rem var(--container-pad) 0;
+    display: flex;
+    justify-content: center;
   }
 
   .site-header__inner {
+    width: 100%;
+    max-width: calc(var(--container-max) - 6rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 4.5rem;
+    height: 3.75rem;
+    padding-inline: 1.5rem;
+    border-radius: var(--radius-pill);
+    background: rgba(20, 20, 18, 0.72);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.55);
   }
 
   .site-header__logo {
@@ -134,11 +142,11 @@ function isActive(href: string) {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
     background: transparent;
     border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
+    border-radius: 50%;
   }
 
   .site-header__menu-icon {

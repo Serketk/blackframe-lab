@@ -5,9 +5,11 @@ import ProjectCard from '../components/ProjectCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CTASection from '../components/CTASection.astro';
 import ArtDirection from '../components/ArtDirection.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
 import { featuredProjects } from '../data/projects';
 import { services, lifecycleStages, differentiators, experienceCapabilities } from '../data/services';
 import type { ArtVariant } from '../components/ArtDirection.astro';
+import { faqItems } from '../data/faq';
 import { getCollection } from 'astro:content';
 import { siteMeta } from '../data/nav';
 
@@ -188,21 +190,21 @@ const jsonLd = {
 
   <!-- WHY BLACKFRAME -->
   <section class="section section-border-top why">
-    <div class="container why__grid">
-      <div>
-        <SectionLabel label="Why Blackframe" />
-        <h2 class="why__heading">Tangible reasons, not agency claims.</h2>
-      </div>
-      <ul class="why__list">
+    <div class="container">
+      <SectionLabel label="Why Blackframe" />
+      <h2 class="why__heading">Tangible reasons, not agency claims.</h2>
+
+      <div class="why__bento">
         {
-          differentiators.map((item) => (
-            <li>
+          differentiators.map((item, i) => (
+            <div class:list={['why__card', { 'why__card--wide': i === 0 }]}>
+              <span class="why__card-number" aria-hidden="true">{`0${i + 1}`}</span>
               <h3>{item.name}</h3>
               <p class="text-secondary">{item.description}</p>
-            </li>
+            </div>
           ))
         }
-      </ul>
+      </div>
     </div>
   </section>
 
@@ -235,6 +237,17 @@ const jsonLd = {
       </section>
     )
   }
+
+  <!-- FAQ -->
+  <section class="section section-border-top faq-section">
+    <div class="container faq-section__grid">
+      <div>
+        <SectionLabel label="Questions" />
+        <h2 class="faq-section__heading">Answers, before you ask.</h2>
+      </div>
+      <FaqAccordion items={faqItems} />
+    </div>
+  </section>
 
   <!-- FINAL CTA -->
   <CTASection
@@ -567,39 +580,61 @@ const jsonLd = {
     }
   }
 
-  .why__grid {
-    display: grid;
-    gap: 2.5rem;
-  }
-
   .why__heading {
     font-size: var(--fs-h2);
-    max-width: 20ch;
+    max-width: 22ch;
     margin-top: 1.5rem;
   }
 
-  .why__list {
+  .why__bento {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
     display: grid;
-    gap: 2rem;
+    gap: 1.25rem;
   }
 
-  .why__list li {
-    padding-block: 1.75rem;
-    border-top: 1px solid var(--color-border);
+  .why__card {
+    position: relative;
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
   }
 
-  .why__list h3 {
+  .why__card-number {
+    position: absolute;
+    top: -0.5rem;
+    right: 1rem;
+    font-size: clamp(4rem, 8vw, 6rem);
+    font-weight: 600;
+    color: var(--color-border);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .why__card h3 {
+    position: relative;
     font-size: var(--fs-h4);
     margin-bottom: 0.6rem;
+    max-width: 22ch;
   }
 
-  .why__list p {
-    max-width: 48ch;
+  .why__card p {
+    position: relative;
+    max-width: 42ch;
   }
 
-  @media (min-width: 1024px) {
-    .why__grid {
-      grid-template-columns: 0.9fr 1.4fr;
+  @media (min-width: 768px) {
+    .why__bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .why__card--wide {
+      grid-column: span 2;
+    }
+
+    .why__card--wide p {
+      max-width: 56ch;
     }
   }
 
@@ -627,5 +662,22 @@ const jsonLd = {
   .insights-list {
     display: flex;
     flex-direction: column;
+  }
+
+  .faq-section__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .faq-section__heading {
+    margin-top: 1.5rem;
+    font-size: var(--fs-h2);
+    max-width: 16ch;
+  }
+
+  @media (min-width: 1024px) {
+    .faq-section__grid {
+      grid-template-columns: 0.8fr 1.4fr;
+    }
   }
 </style>

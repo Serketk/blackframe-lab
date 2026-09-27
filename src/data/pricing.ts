@@ -1,3 +1,42 @@
+export interface EngagementModel {
+  slug: string;
+  name: string;
+  price: string;
+  description: string;
+  includes: string[];
+}
+
+/**
+ * Two ways to work with the studio, shown above the scope-based packages.
+ * Prices below are starting placeholders, not final quotes.
+ */
+export const engagementModels: EngagementModel[] = [
+  {
+    slug: 'one-time-project',
+    name: 'One-Time Project',
+    price: 'From $900',
+    description: 'A focused project with a defined scope, a clear timeline, and one deliverable at the end.',
+    includes: [
+      'Fixed scope and timeline',
+      'Direct collaboration throughout',
+      'One agreed deliverable at the end',
+      'Scope broken down in the packages below',
+    ],
+  },
+  {
+    slug: 'ongoing-partner',
+    name: 'Ongoing Partner',
+    price: 'From $1,200/mo',
+    description: 'Continuing design and development support for a business that keeps needing a website partner, not a one-off build.',
+    includes: [
+      'New pages and updates as needed',
+      'Technical fixes and monitoring',
+      'Ongoing UX/UI improvements',
+      'Pause or cancel anytime',
+    ],
+  },
+];
+
 export interface PricingPackage {
   slug: string;
   index: string;
