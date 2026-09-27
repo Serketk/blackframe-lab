@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import CTASection from '../components/CTASection.astro';
-import { pricingPackages, engagementModels } from '../data/pricing';
+import ArtDirection from '../components/ArtDirection.astro';
+import { pricingPackages, servicePriceOverview } from '../data/pricing';
 
 const title = 'Pricing';
 const description =
@@ -11,41 +12,41 @@ const description =
 
 <BaseLayout title={title} description={description} path="/pricing">
   <section class="pricing-hero section">
-    <div class="container">
-      <SectionLabel label="Pricing" />
-      <h1 class="pricing-hero__title">Straightforward pricing, by project scope.</h1>
-      <p class="pricing-hero__note text-secondary">
-        The ranges below are starting points, not fixed quotes — the right number depends on
-        content, integrations and timeline. Every project starts with a short conversation to
-        confirm scope before anything is agreed.
-      </p>
+    <div class="container pricing-hero__grid">
+      <div>
+        <SectionLabel label="Pricing" />
+        <h1 class="pricing-hero__title">Straightforward pricing, by project scope.</h1>
+        <p class="pricing-hero__note text-secondary">
+          The ranges below are starting points, not fixed quotes — the right number depends on
+          content, integrations and timeline. Every project starts with a short conversation to
+          confirm scope before anything is agreed.
+        </p>
+      </div>
+      <div class="pricing-hero__visual">
+        <ArtDirection variant="professional" ratio="4 / 5" />
+      </div>
     </div>
   </section>
 
   <section class="section-border-top engagement">
     <div class="container">
-      <SectionLabel label="Two Ways to Work Together" />
+      <SectionLabel label="Four Ways to Work With the Studio" />
       <div class="engagement__grid">
         {
-          engagementModels.map((model, i) => (
-            <div class:list={['engagement__card', { 'engagement__card--dark': i === 1 }]}>
-              <h2 class="engagement__name">{model.name}</h2>
-              <p class="engagement__description text-secondary">{model.description}</p>
-              <p class="engagement__price">{model.price}</p>
-              <ul class="engagement__includes">
-                {model.includes.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-              <a href="/start-a-project" class="btn btn-secondary engagement__btn">
-                Start a Conversation
-              </a>
-            </div>
+          servicePriceOverview.map((item) => (
+            <a href={`/services#${item.serviceSlug}`} class="engagement__card">
+              <span class="engagement__index">{item.index}</span>
+              <h2 class="engagement__name">{item.name}</h2>
+              <p class="engagement__description text-secondary">{item.description}</p>
+              <p class="engagement__price">{item.priceRange}</p>
+              <span class="engagement__link">See full scope on Services</span>
+            </a>
           ))
         }
       </div>
       <p class="engagement__note text-secondary">
-        The packages below break down the One-Time Project option by scope.
+        Landing Pages and Website Care & Growth are detailed below. New Websites and Website
+        Redesign are broken down by scope in the packages that follow.
       </p>
     </div>
   </section>
@@ -103,6 +104,12 @@ const description =
     padding-bottom: 0;
   }
 
+  .pricing-hero__grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
   .pricing-hero__title {
     font-size: var(--fs-h1);
     max-width: 22ch;
@@ -115,6 +122,20 @@ const description =
     max-width: 54ch;
   }
 
+  .pricing-hero__visual {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .pricing-hero__grid {
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .pricing-hero__visual {
+      display: block;
+    }
+  }
+
   .engagement {
     padding-block: clamp(3rem, 6vw, 5rem);
   }
@@ -122,74 +143,74 @@ const description =
   .engagement__grid {
     margin-top: clamp(2rem, 4vw, 3rem);
     display: grid;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 
   .engagement__card {
-    padding: clamp(1.75rem, 3vw, 2.5rem);
+    display: block;
+    padding: clamp(1.5rem, 3vw, 2rem);
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
     background: var(--color-surface);
+    transition: border-color var(--duration-base) var(--ease-standard);
   }
 
-  .engagement__card--dark {
+  .engagement__card:hover {
     border-color: var(--color-accent);
-    background: var(--color-surface-raised);
+  }
+
+  .engagement__card:hover .engagement__name {
+    color: var(--color-accent);
+  }
+
+  .engagement__index {
+    display: block;
+    font-size: var(--fs-small);
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
   }
 
   .engagement__name {
-    font-size: var(--fs-h3);
+    font-size: var(--fs-h4);
+    transition: color var(--duration-fast) var(--ease-standard);
   }
 
   .engagement__description {
-    margin-top: 0.75rem;
-    max-width: 36ch;
+    margin-top: 0.6rem;
+    max-width: 30ch;
+    font-size: var(--fs-small);
   }
 
   .engagement__price {
-    margin-top: 1.5rem;
-    font-size: var(--fs-h2);
+    margin-top: 1.25rem;
+    font-size: var(--fs-h3);
     font-weight: 600;
   }
 
-  .engagement__includes {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .engagement__includes li {
-    position: relative;
-    padding-left: 1.1rem;
-    font-size: var(--fs-small);
-    color: var(--color-text-secondary);
-  }
-
-  .engagement__includes li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 5px;
-    height: 1px;
-    background: var(--color-text-muted);
-  }
-
-  .engagement__btn {
-    margin-top: 2rem;
-    width: 100%;
-    justify-content: center;
+  .engagement__link {
+    display: block;
+    margin-top: 1.25rem;
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
   }
 
   .engagement__note {
     margin-top: 2rem;
     font-size: var(--fs-small);
+    max-width: 60ch;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     .engagement__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .engagement__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 

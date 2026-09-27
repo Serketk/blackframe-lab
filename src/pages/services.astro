@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import ServiceSection from '../components/ServiceSection.astro';
 import CTASection from '../components/CTASection.astro';
+import ArtDirection from '../components/ArtDirection.astro';
 import { services, capabilities, engagementProcess, additionalDigitalSupport } from '../data/services';
 
 const title = 'Services';
@@ -12,12 +13,17 @@ const description =
 
 <BaseLayout title={title} description={description} path="/services">
   <section class="services-hero section">
-    <div class="container">
-      <SectionLabel index="01" label="Services" />
-      <h1 class="services-hero__title">Websites from first structure to long after launch.</h1>
-      <p class="services-hero__note text-secondary">
-        Four ways to work with the studio, depending on where the project stands today. See <a href="/pricing">starting price ranges by project type</a>.
-      </p>
+    <div class="container services-hero__grid">
+      <div>
+        <SectionLabel index="01" label="Services" />
+        <h1 class="services-hero__title">Websites from first structure to long after launch.</h1>
+        <p class="services-hero__note text-secondary">
+          Four ways to work with the studio, depending on where the project stands today. See <a href="/pricing">starting price ranges by project type</a>.
+        </p>
+      </div>
+      <div class="services-hero__visual">
+        <ArtDirection variant="professional" ratio="4 / 5" />
+      </div>
     </div>
   </section>
 
@@ -79,6 +85,26 @@ const description =
 <style>
   .services-hero {
     padding-bottom: 0;
+  }
+
+  .services-hero__grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .services-hero__visual {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .services-hero__grid {
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .services-hero__visual {
+      display: block;
+    }
   }
 
   .services-hero__title {

@@ -1,39 +1,49 @@
-export interface EngagementModel {
-  slug: string;
+export interface ServicePriceOverview {
+  serviceSlug: string;
+  index: string;
   name: string;
-  price: string;
+  priceRange: string;
   description: string;
-  includes: string[];
+  packageAnchor: string;
 }
 
 /**
- * Two ways to work with the studio, shown above the scope-based packages.
- * Prices below are starting placeholders, not final quotes.
+ * The four core services, each with a rough starting price range — shown above
+ * the detailed scope-based packages. Ranges below are starting placeholders,
+ * not final quotes. Kept in sync by hand with src/data/services.ts.
  */
-export const engagementModels: EngagementModel[] = [
+export const servicePriceOverview: ServicePriceOverview[] = [
   {
-    slug: 'one-time-project',
-    name: 'One-Time Project',
-    price: 'From $900',
-    description: 'A focused project with a defined scope, a clear timeline, and one deliverable at the end.',
-    includes: [
-      'Fixed scope and timeline',
-      'Direct collaboration throughout',
-      'One agreed deliverable at the end',
-      'Scope broken down in the packages below',
-    ],
+    serviceSlug: 'new-websites',
+    index: '01',
+    name: 'New Websites',
+    priceRange: '$1,200 – $15,000+',
+    description: 'From a single page to a full multi-page build, depending on scope.',
+    packageAnchor: 'small-website',
   },
   {
-    slug: 'ongoing-partner',
-    name: 'Ongoing Partner',
-    price: 'From $1,200/mo',
-    description: 'Continuing design and development support for a business that keeps needing a website partner, not a one-off build.',
-    includes: [
-      'New pages and updates as needed',
-      'Technical fixes and monitoring',
-      'Ongoing UX/UI improvements',
-      'Pause or cancel anytime',
-    ],
+    serviceSlug: 'website-redesign',
+    index: '02',
+    name: 'Website Redesign',
+    priceRange: '$2,800 – $15,000+',
+    description: 'Rebuilding an existing site, priced like an equivalent new build.',
+    packageAnchor: 'small-website',
+  },
+  {
+    serviceSlug: 'landing-pages',
+    index: '03',
+    name: 'Landing Pages',
+    priceRange: '$900 – $2,000',
+    description: 'A single page built around one campaign, offer or launch.',
+    packageAnchor: 'landing-page',
+  },
+  {
+    serviceSlug: 'website-care-growth',
+    index: '04',
+    name: 'Website Care & Growth',
+    priceRange: '$85/hr, or from $350/mo',
+    description: 'Ongoing updates and support for a site that already exists.',
+    packageAnchor: 'edits-revisions',
   },
 ];
 
