@@ -143,6 +143,8 @@ const jsonLd = {
           ))
         }
       </div>
+
+      <a href="/pricing" class="offer__pricing-link">See starting prices by project type</a>
     </div>
   </section>
 
@@ -510,6 +512,23 @@ const jsonLd = {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0 3rem;
     }
+  }
+
+  .offer__pricing-link {
+    display: inline-block;
+    margin-top: 2.5rem;
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: color var(--duration-fast) var(--ease-standard),
+      text-decoration-color var(--duration-fast) var(--ease-standard);
+  }
+
+  .offer__pricing-link:hover {
+    color: var(--color-text);
+    text-decoration-color: currentColor;
   }
 
   .lifecycle__heading {

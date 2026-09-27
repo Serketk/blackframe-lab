@@ -16,7 +16,7 @@ const description =
       <SectionLabel index="01" label="Services" />
       <h1 class="services-hero__title">Websites from first structure to long after launch.</h1>
       <p class="services-hero__note text-secondary">
-        Four ways to work with the studio, depending on where the project stands today.
+        Four ways to work with the studio, depending on where the project stands today. See <a href="/pricing">starting price ranges by project type</a>.
       </p>
     </div>
   </section>
@@ -91,6 +91,16 @@ const description =
     margin-top: 1.5rem;
     font-size: var(--fs-body-lg);
     max-width: 48ch;
+  }
+
+  .services-hero__note a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .services-hero__note a:hover {
+    color: var(--color-accent);
   }
 
   .additional-support__note {

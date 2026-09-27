@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import CTASection from '../components/CTASection.astro';
+import { pricingPackages } from '../data/pricing';
+
+const title = 'Pricing';
+const description =
+  'Starting price ranges for landing pages, one-page sites, small and large websites, and ongoing edits from BLACKFRAME LAB.';
+---
+
+<BaseLayout title={title} description={description} path="/pricing">
+  <section class="pricing-hero section">
+    <div class="container">
+      <SectionLabel label="Pricing" />
+      <h1 class="pricing-hero__title">Straightforward pricing, by project scope.</h1>
+      <p class="pricing-hero__note text-secondary">
+        The ranges below are starting points, not fixed quotes — the right number depends on
+        content, integrations and timeline. Every project starts with a short conversation to
+        confirm scope before anything is agreed.
+      </p>
+    </div>
+  </section>
+
+  <div class="pricing-list">
+    {
+      pricingPackages.map((pkg) => (
+        <article class="pricing-item section-border-top" id={pkg.slug}>
+          <div class="container pricing-item__grid">
+            <div class="pricing-item__intro">
+              <span class="pricing-item__index">{pkg.index}</span>
+              <h2 class="pricing-item__name">{pkg.name}</h2>
+              <p class="pricing-item__price">{pkg.priceRange}</p>
+              <p class="pricing-item__timeline text-secondary">Typical timeline: {pkg.timeline}</p>
+              <p class="pricing-item__description text-secondary">{pkg.description}</p>
+            </div>
+
+            <div class="pricing-item__details">
+              <div class="pricing-item__block">
+                <p class="eyebrow">Best For</p>
+                <p class="text-secondary">{pkg.bestFor}</p>
+              </div>
+              <div class="pricing-item__block">
+                <p class="eyebrow">What's Included</p>
+                <ul>
+                  {pkg.includes.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <section class="section section-border-top pricing-note">
+    <div class="container">
+      <p class="pricing-note__text text-secondary">
+        Not sure which of these fits, or need something that sits between two? Describe the
+        project and we'll come back with a specific number, not just a range.
+      </p>
+    </div>
+  </section>
+
+  <CTASection
+    heading="Ready to get a real number?"
+    supporting="Tell us about the project and we'll follow up with a scoped quote."
+  />
+</BaseLayout>
+
+<style>
+  .pricing-hero {
+    padding-bottom: 0;
+  }
+
+  .pricing-hero__title {
+    font-size: var(--fs-h1);
+    max-width: 22ch;
+    margin-top: 1.5rem;
+  }
+
+  .pricing-hero__note {
+    margin-top: 1.5rem;
+    font-size: var(--fs-body-lg);
+    max-width: 54ch;
+  }
+
+  .pricing-list {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .pricing-item {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .pricing-item__grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .pricing-item__index {
+    display: block;
+    font-size: var(--fs-small);
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .pricing-item__name {
+    font-size: var(--fs-h2);
+  }
+
+  .pricing-item__price {
+    margin-top: 1rem;
+    font-size: var(--fs-h3);
+    font-weight: 600;
+  }
+
+  .pricing-item__timeline {
+    margin-top: 0.4rem;
+    font-size: var(--fs-small);
+  }
+
+  .pricing-item__description {
+    margin-top: 1.25rem;
+    max-width: 36ch;
+  }
+
+  .pricing-item__details {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .pricing-item__block ul {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pricing-item__block li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+  }
+
+  .pricing-item__block li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 1px;
+    background: var(--color-text-muted);
+  }
+
+  .pricing-item__block p.text-secondary {
+    max-width: 40ch;
+  }
+
+  @media (min-width: 640px) {
+    .pricing-item__details {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pricing-item__grid {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+  }
+
+  .pricing-note {
+    padding-block: clamp(2rem, 4vw, 3rem);
+  }
+
+  .pricing-note__text {
+    font-size: var(--fs-body-lg);
+    max-width: 56ch;
+  }
+</style>

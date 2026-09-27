@@ -59,6 +59,7 @@ Most copy lives in structured data files, not hard-coded in pages:
 
 - **Navigation, brand name, tagline, contact email:** [`src/data/nav.ts`](src/data/nav.ts)
 - **Services (New Websites, Redesign, Landing Pages, Care & Growth), capabilities, process steps, differentiators, form dropdown options:** [`src/data/services.ts`](src/data/services.ts)
+- **Pricing packages (Landing Page, One-Page Site, Small/Large Website, Edits & Revisions):** [`src/data/pricing.ts`](src/data/pricing.ts) — **the price ranges in this file are starting placeholders, not real quotes.** Replace `priceRange` on each package with your actual numbers before this goes live for real visitors.
 - **Case studies / portfolio projects:** [`src/data/projects.ts`](src/data/projects.ts)
 - **Studio page prose:** directly in [`src/pages/studio.astro`](src/pages/studio.astro)
 - **Privacy policy:** directly in [`src/pages/privacy.astro`](src/pages/privacy.astro)
