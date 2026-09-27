@@ -10,7 +10,7 @@ interface Props {
 const { project, index } = Astro.props;
 ---
 
-<a href={`/work/${project.slug}`} class="project-card" data-reveal>
+<a href={`/work/${project.slug}`} class="project-card">
   <div class="project-card__media">
     <ArtDirection variant={project.artVariant} ratio="4 / 3" />
     {index && <span class="project-card__index">{index}</span>}

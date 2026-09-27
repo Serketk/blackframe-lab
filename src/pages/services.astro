@@ -14,8 +14,8 @@ const description =
   <section class="services-hero section">
     <div class="container">
       <SectionLabel index="01" label="Services" />
-      <h1 class="services-hero__title" data-reveal>Websites from first structure to long after launch.</h1>
-      <p class="services-hero__note text-secondary" data-reveal>
+      <h1 class="services-hero__title">Websites from first structure to long after launch.</h1>
+      <p class="services-hero__note text-secondary">
         Four ways to work with the studio, depending on where the project stands today.
       </p>
     </div>
@@ -28,13 +28,13 @@ const description =
   <section class="section section-border-top">
     <div class="container">
       <SectionLabel index="05" label="Additional Digital Support" />
-      <p class="additional-support__note text-secondary" data-reveal>
+      <p class="additional-support__note text-secondary">
         A secondary capability, available alongside a website project when a campaign needs it.
       </p>
       <div class="additional-support__grid">
         {
           additionalDigitalSupport.map((item) => (
-            <div class="additional-support__item" data-reveal>
+            <div class="additional-support__item">
               <h3>{item.name}</h3>
               <p class="text-secondary">{item.description}</p>
             </div>
@@ -59,7 +59,7 @@ const description =
       <ol class="process__list">
         {
           engagementProcess.map((stage) => (
-            <li data-reveal>
+            <li>
               <span class="process__index">{stage.index}</span>
               <h3>{stage.name}</h3>
               <p class="text-secondary">{stage.description}</p>

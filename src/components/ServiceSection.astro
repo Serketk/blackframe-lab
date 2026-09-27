@@ -13,8 +13,8 @@ const { service, reversed = false } = Astro.props;
   <div class="container service-section__grid">
     <div class="service-section__intro">
       <span class="service-section__index">{service.index}</span>
-      <h2 class="service-section__name" data-reveal>{service.name}</h2>
-      <p class="service-section__summary text-secondary" data-reveal>{service.summary}</p>
+      <h2 class="service-section__name">{service.name}</h2>
+      <p class="service-section__summary text-secondary">{service.summary}</p>
 
       <dl class="service-section__who">
         <dt class="eyebrow">Who it's for</dt>

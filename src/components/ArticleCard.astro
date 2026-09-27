@@ -15,7 +15,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<a href={`/insights/${article.id}`} class="article-card" data-reveal>
+<a href={`/insights/${article.id}`} class="article-card">
   <p class="article-card__meta">
     <span class="article-card__topic">{topic}</span>
     <span aria-hidden="true">·</span>
@@ -25,10 +25,6 @@ const formattedDate = date.toLocaleDateString('en-US', {
   </p>
   <h3 class="article-card__title">{title}</h3>
   <p class="article-card__intro text-secondary">{intro}</p>
-  <span class="article-card__link">
-    Read the article
-    <span class="btn-arrow" aria-hidden="true">→</span>
-  </span>
 </a>
 
 <style>
@@ -72,13 +68,5 @@ const formattedDate = date.toLocaleDateString('en-US', {
   .article-card__intro {
     margin-top: 0.75rem;
     max-width: 56ch;
-  }
-
-  .article-card__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5em;
-    margin-top: 1.25rem;
-    font-size: var(--fs-small);
   }
 </style>

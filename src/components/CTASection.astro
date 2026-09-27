@@ -18,9 +18,9 @@ const {
 
 <section class:list={['cta-section', { 'section-border-top': bordered }]}>
   <div class="container cta-section__inner">
-    <h2 class="cta-section__heading" data-reveal>{heading}</h2>
-    {supporting && <p class="cta-section__supporting text-secondary" data-reveal>{supporting}</p>}
-    <a href={ctaHref} class="btn btn-primary cta-section__btn" data-reveal>
+    <h2 class="cta-section__heading">{heading}</h2>
+    {supporting && <p class="cta-section__supporting text-secondary">{supporting}</p>}
+    <a href={ctaHref} class="btn btn-primary cta-section__btn">
       {ctaLabel}
       <span class="btn-arrow" aria-hidden="true">→</span>
     </a>
